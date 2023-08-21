@@ -28,14 +28,14 @@ namespace BE_WebNovel.Controllers
                     Response.Cookies.Add(cookie);
                 }
 
-                return Redirect("~/Home/Index");
+                return Redirect("~/Home/Index?loginError=false");
             }
             else
             {
-                return Redirect("~/Shared/Error");
+                return Redirect("~/Home/Index?loginError=true");
             }
         }
-
+         
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "user_id,username,password,email,user_avatar,user_background,created_at")] User user, string rePass)
@@ -52,9 +52,9 @@ namespace BE_WebNovel.Controllers
             {
                 db.Users.Add(user);
                 db.SaveChanges();
-                return Redirect("~/Home/Index");
+                return Redirect("~/Home/Index?registerError=false");
             }
-            return Redirect("~/Shared/Error");
+            return Redirect("~/Home/Index?registerError=true");
         }
 
         public ActionResult LogOut()

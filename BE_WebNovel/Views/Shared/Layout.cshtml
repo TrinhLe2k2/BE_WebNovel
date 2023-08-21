@@ -1,4 +1,6 @@
 ﻿
+@model BE_WebNovel.Models.User
+
 <!DOCTYPE html>
 
 <html>
@@ -46,14 +48,26 @@
                     </form>
                 </div>
                 <div class="col-8 col-sm-4 d-flex justify-content-end align-items-center">
-                    <a href="#" data-bs-target="#AccountModal" data-bs-toggle="modal" class="account">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="fw-bold">Tài khoản</span>
-                    </a>
-                    <a href="./QuanLyTrangCaNhan.html" class="account">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="fw-bold">Mario Baby</span>
-                    </a>
+                    @{
+                        if (Session["user"] != null)
+                        {
+                            var user = (BE_WebNovel.Models.User)HttpContext.Current.Session["user"];
+                            <a href="~/Admin/HomeAdmin/Index/@user.user_id" class="account">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="fw-bold">@user.username</span>
+                            </a>
+                            <a href="/Account/LogOut" class="account">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" data-bs-target="#AccountModal" data-bs-toggle="modal" class="account">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="fw-bold">Tài khoản</span>
+                            </a>
+                        }
+                    }
                 </div>
             </div>
             <div class="row my-2">
@@ -200,28 +214,30 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="#" class="" method="post">
+                            <form action="~/Account/Login" class="" method="post">
+                                @Html.AntiForgeryToken()
                                 <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Email">Email</label>
+                                    <label class="col-md-12 my-1 control-label" for="Email">Email<span id="LoginErrorMessage" class="text-danger ms-3 float-end"></span></label>
                                     <div class="col-md-12">
-                                        <input class="form-control" id="Email" name="Email" type="email" value="">
-                                        <span></span>
+                                        <input class="form-control" id="Email" type="email" name="InputEmail">
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Password">Password</label>
+                                    <label class="col-md-12 my-1 control-label" for="Password">Password<span id="LoginErrorMessage" class="text-danger ms-3 float-end"></span></label>
                                     <div class="col-md-12">
-                                        <input class="form-control" id="Password" name="Password" type="password" value="">
-                                        <span></span>
+                                        <input class="form-control" id="Password" type="password" name="inputPassword">
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="col-md-offset-2 col-md-12">
                                         <div class="checkbox">
-                                            <input id="RememberMe" name="RememberMe" type="checkbox" value="true">
+                                            <input id="RememberMe" type="checkbox" value="1" name="RememberMe">
                                             <label for="RememberMe">Remember me?</label>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <span class="text-danger">@ViewBag.LoginErrorMessage</span>
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="col-md-offset-2 col-md-12">
@@ -231,7 +247,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <span>Bạn chưa có tài khoản?<a href="" data-bs-target="#AccountModal2" data-bs-toggle="modal"> Đăng ký tại đây</a></span>
+                            <span>Bạn chưa có tài khoản?<a href="" data-bs-target="#AccountModal2" data-bs-toggle="modal" id="Register"> Đăng ký tại đây</a></span>
                         </div>
                     </div>
                 </div>
@@ -245,33 +261,31 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="#" class="" method="post">
+                            <form action="~/Account/Register" class="" method="post">
+                                @Html.AntiForgeryToken()
                                 <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="UserName">Tên đăng nhập</label>
+                                    <label class="col-md-12 my-1 control-label" for="UserName">Họ Tên<span id="RegisterErrorMessage" class="text-danger ms-3 float-end"></span></label>
                                     <div class="col-md-12">
-                                        <input class="form-control" id="UserName" name="UserName" type="text" value="">
-                                        <span></span>
+                                        <input class="form-control" id="UserName" type="text" name="username">
+
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Email">Email</label>
+                                    <label class="col-md-12 my-1 control-label" for="Email">Email<span id="RegisterErrorMessage" class="text-danger ms-3 float-end">@ViewBag.EmailerrorMessage</span></label>
                                     <div class="col-md-12">
-                                        <input class="form-control" id="Email" name="Email" type="email" value="">
-                                        <span></span>
+                                        <input class="form-control" id="Email" type="email" name="email">
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Password">Mật khẩu</label>
+                                    <label class="col-md-12 my-1 control-label" for="Password">Mật khẩu<span id="RegisterErrorMessage" class="text-danger ms-3 float-end RegisterPassErrorMessage"></span></label>
                                     <div class="col-md-12">
-                                        <input class="form-control" id="Password" name="Password" type="password" value="">
-                                        <span></span>
+                                        <input class="form-control" id="Password" type="password" name="password">
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Re-Password">Nhập lại mật khẩu</label>
+                                    <label class="col-md-12 my-1 control-label" for="Re-Password">Nhập lại mật khẩu<span id="RegisterErrorMessage" class="text-danger ms-3 float-end RegisterRePassErrorMessage"></span></label>
                                     <div class="col-md-12">
-                                        <input class="form-control" id="Re-Password" name="Re-Password" type="password" value="">
-                                        <span></span>
+                                        <input class="form-control" id="Re-Password" type="password" name="rePass">
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
@@ -289,7 +303,27 @@
             </div>
             <!-- <button class="btn btn-primary" data-bs-target="#AccountModal" data-bs-toggle="modal">Open first modal</button> -->
         </section>
+
+
+        <section>
+            <!-- Mess success -->
+            <button type="button" class="btn btn-primary" hidden id="liveToastBtn">ShowMessage</button>
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" style="border: solid 2px @ViewBag.Color">
+                    <div class="toast-header">
+                        <strong class="me-auto" style="color: @ViewBag.Color">Thông báo</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        @ViewBag.ToastContent
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </section>
+
 
     <!-- js -->
     <script src="~/Content/assets/js/bootstrap.bundle.min.js"></script>
@@ -297,6 +331,84 @@
     <script src="~/Content/assets/js/jquery-3.6.0.min.js"></script>
     <script src="~/Content/assets/js/app.js"></script>
     @RenderSection("script", false)
+
+    <!-- js Toast-->
+    <script>
+        const toastTrigger = document.getElementById('liveToastBtn')
+        const toastLiveExample = document.getElementById('liveToast')
+
+        if (toastTrigger) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastTrigger.addEventListener('click', () => {
+                toastBootstrap.show()
+            })
+        }
+    </script>
+
+    <!-- js login error -->
+    @if (ViewBag.loginError == true)
+    {
+        <script>
+            document.getElementById("liveToastBtn").click();
+            document.querySelector('#Header .account').click();
+        </script>
+    }
+    else
+    {
+        <script>
+            document.getElementById("liveToastBtn").click();
+        </script>
+    }
+
+    <!-- js login form -->
+    <script>
+        var InputsLogin = document.querySelectorAll('#AccountModal .form-group');
+        InputsLogin.forEach(element => {
+            element.querySelector('input.form-control').addEventListener('blur', function () {
+                if (!element.querySelector('input.form-control').value) {
+                    element.querySelector('#LoginErrorMessage').textContent = "Vui lòng nhập trường này";
+                }
+            })
+            element.querySelector('input.form-control').addEventListener('input', function () {
+                element.querySelector('#LoginErrorMessage').textContent = "";
+            })
+        })
+    </script>
+
+    <!-- js register form -->
+    <script>
+        var password = document.querySelector('#AccountModal2 .form-group input#Password');
+        var rePassword = document.querySelector('#AccountModal2 .form-group input#Re-Password');
+        var InputsRegister = document.querySelectorAll('#AccountModal2 .form-group');
+        InputsRegister.forEach(element => {
+            element.querySelector('input.form-control').addEventListener('blur', function () {
+                if (!element.querySelector('input.form-control').value) {
+                    element.querySelector('#RegisterErrorMessage').textContent = "Vui lòng nhập trường này";
+                }
+            })
+            element.querySelector('input.form-control').addEventListener('input', function () {
+                if (this == rePassword || this == password) {
+                    if (password.value != rePassword.value) {
+                        element.querySelector('#RegisterErrorMessage').textContent = "Mật khẩu xác nhận không chính xác";
+                    } else {
+                        document.querySelector('.form-group .RegisterPassErrorMessage').textContent = "";
+                        document.querySelector('.form-group .RegisterRePassErrorMessage').textContent = "";
+                    }
+                } else {
+                    element.querySelector('#RegisterErrorMessage').textContent = "";
+                }
+            })
+        })
+    </script>
+
+    <!-- js register error -->
+    @if (ViewBag.registerError == true)
+    {
+        <script>
+            document.querySelector('#Register').click();
+        </script>
+    }
+
 </body>
 
 </html>
