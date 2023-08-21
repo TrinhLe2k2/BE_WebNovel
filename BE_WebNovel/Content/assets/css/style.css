@@ -1,0 +1,446 @@
+﻿:root {
+    --primaty-color: #00dc82;
+    --text-bg: #fff;
+    --text-color: #000;
+}
+
+a {
+    text-decoration: none;
+}
+
+.Card > img,
+.Card {
+    border-radius: 4px;
+}
+
+/* Định nghĩa font-face */
+@font-face {
+    font-family: "Chocopy";
+    src: url("../font/chocopy.029aa735.ttf") format("truetype");
+}
+
+/* start Shared css */ 
+input.outline-none { /* start Shared css */
+    outline: none;
+}
+
+.col-xl-2-4 {
+    padding: 0 8px;
+}
+
+.More {
+    border: solid 2px #fff;
+    color: #000;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: var(--bs-border-radius-pill);
+    transition: border ease .5s;
+}
+
+.More:hover {
+    text-decoration: none;
+    color: var(--primaty-color);
+    border: solid 2px var(--primaty-color);
+}
+
+/* end Shared css */
+
+/* start Header css */
+
+body {
+    background-image: linear-gradient( #00dc8035, #fff);
+}
+
+#Header .Dropdown-Menu {
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 200%;
+    box-shadow: 0 0 8px #000;
+    margin-top: 8px !important;
+    transition: all ease .5s;
+}
+
+#Header .Dropdown-Menu .container {
+    opacity: 0;
+    transition: all ease .5s;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+    #Header .Dropdown-Menu {
+        width: 400%;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    #Header .Dropdown-Menu {
+        width: 500%;
+    }
+}
+
+#Header .Category .Category-Link {
+    color: #000;
+    transition: all ease 0.3s;
+}
+
+#Header .Category .Category-Link:hover {
+    color: var(--primaty-color);
+}
+
+
+
+#Header .Logo img {
+    width: 10%;
+}
+
+#Header .Logo h3 {
+    font-size: 1.5rem;
+    font-family: Chocopy,sans-serif;
+    color: var(--primaty-color);
+    margin-bottom: 0;
+}
+
+#Header .account {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--bs-border-radius-pill);
+    transition: background-color ease .3s;
+}
+
+#Header .account:hover {
+    background-color: var(--primaty-color);
+    color: var(--text-bg);
+}
+
+/* CSS để thay đổi màu viền của form khi focus vào thẻ input */
+#Header .custom-form {
+    border: 2px solid #ced4da; /* Màu viền mặc định */
+    transition: border-color 0.3s ease; /* Thời gian chuyển đổi màu viền */
+}
+
+#Header .custom-form:focus-within {
+    border: 2px solid var(--primaty-color); /* Màu viền khi focus vào thẻ input */
+}
+
+#Header .nav li.nav-item .nav-link{
+    border-radius: var(--bs-border-radius-pill);
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+#Header .nav .nav-item .nav-link.active{
+    background-color: var(--primaty-color);
+    color: var(--text-bg);
+}
+
+
+
+/* end Header css */    
+
+/* start Main css */   
+
+.slick-slide {
+    
+}
+
+#Slick-SliderSyncing 
+{
+    
+}
+
+#Slick-SliderSyncing .slider-nav .slick-list .slick-slide 
+{
+    margin: 0 4px;
+}
+
+.slick-prev:before, .slick-next:before
+{
+color:#000;
+}
+
+.slider-for img{
+width:100%;
+height:400px;
+object-fit:cover;
+
+}
+
+.slider-nav img 
+{
+    height:100px;
+    object-fit:cover;
+}
+
+
+.slick-dots li button:before { /* custom slick them */
+    font-size: 24px;
+}
+
+.slick-prev, /* Arrows */
+.slick-next {
+    z-index: 1;
+    width: 4%;
+    height: 100%;
+    
+}
+.slick-prev {
+    left: 0;
+}
+.slick-next {
+    right: 0;
+}
+
+.slider-nav .Card { /* CSS để đảm bảo hình ảnh trong .slider-nav có tỷ lệ khung hình 1:1 */
+    position: relative;
+    padding-bottom: 133.33%; /* Tạo một hộp chứa có tỷ lệ 1:1 (100% chiều rộng so với 100% chiều cao) */
+    overflow: hidden;
+    
+}
+
+.slider-nav .Card:hover .Title span {
+    color: var(--primaty-color)
+}
+
+.slider-nav .Card:hover img {
+    transform: scale(1.1); /* Khi hover vào hình ảnh, zoom ảnh lên 20% */
+}
+
+.slider-nav .Card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Chiếm toàn bộ không gian trong hộp chứa */
+    object-fit: cover; /* Chỉnh kích thước hình ảnh trong khung 1:1 */
+    transition: transform 0.5s ease; /* Thêm hiệu ứng transition cho hiệu ứng zoom */
+}
+
+.slider-nav .Card .Title {
+    position: absolute;
+    bottom: 0;
+    height: 40%;
+    width: 100%;
+    /* background-image: linear-gradient(transparent, black); */
+    margin-bottom: 0;
+}
+
+.slider-nav .Card .Title span {
+    color: var(--text-bg);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 12px;
+    margin-bottom: 16px;
+    
+    height: 100%;
+    font-weight: 700;
+    width: 100%;
+    text-shadow: 5px 5px 10px #000;
+    text-align: center;
+
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Số dòng tối đa muốn hiển thị */
+    -webkit-box-orient: vertical;
+    max-height: 3.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#Main .slider-for { /* Slick for */
+
+}
+
+#Main .slider-for .Card { 
+    position: relative;
+    padding-top: 33.33%; /* Tỷ lệ 27:9 là 9/27 = 0.3333, 0.3333 x 100% = 33.33% */
+}
+
+#Main .slider-for .Card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Chiếm toàn bộ không gian trong hộp chứa */
+    object-fit: cover; /* Chỉnh kích thước hình ảnh trong khung 1:1 */
+}
+
+#Main .slider-for .UserProfile {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    padding: 8px;
+    z-index: 1;
+}
+
+#Main .slider-for .Avatar {
+    position: relative;
+    width: 15%;
+    padding-top: 15%;
+    
+}
+
+#Main .slider-for .Avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Chiếm toàn bộ không gian trong hộp chứa */
+    object-fit: cover; /* Chỉnh kích thước hình ảnh trong khung 1:1 */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #fff;
+}
+
+#Main .slider-for .Information {
+    margin: auto 16px;
+    max-width: 80%;
+}
+
+#Main .slider-for .UserName {
+    line-height: 2rem;
+    width: 100%;
+    font-weight: 700;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Số dòng tối đa muốn hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    text-shadow: 0 0 4px #000;
+}
+
+#Main .slider-for .Action .nav-link {
+    
+    border-radius: var(--bs-border-radius-pill);
+    color: #fff;
+}
+
+#Main .slider-for .Action .nav-link:hover {
+    background-color: #00dc82;
+    color: #fff;
+}
+
+.Overlay-Card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    z-index: 0;
+}
+
+
+
+
+#Main .BookUpdate h3 i {
+    color: var(--primaty-color);
+}
+
+#Main .BookUpdate .Card {
+    position: relative;
+    padding-top: 133.33%; /* Tạo một hộp chứa có tỷ lệ 3:4 (100% chiều rộng so với 133.33% chiều cao) */
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+#Main .BookUpdate .Card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Chiếm toàn bộ không gian trong hộp chứa */
+    object-fit: cover; /* Chỉnh kích thước hình ảnh trong khung 1:1 */
+    transition: transform 0.5s ease; /* Thêm hiệu ứng transition cho hiệu ứng zoom */
+}
+
+#Main .BookUpdate .Card .Information {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    padding: 16px;
+    text-shadow: 0 0 4px #000;
+    width: 100%;
+    text-align: center;
+}
+
+
+#Main .BookUpdate .Card .Information .Title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Số dòng tối đa muốn hiển thị */
+    -webkit-box-orient: vertical;
+    max-height: 3.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#Main .BookUpdate .Card .Information .nav-item {
+    font-size: 0.8rem;
+    padding: 4px 6px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: var(--bs-border-radius-pill);
+}
+
+#Main .BookUpdate .Card:hover img {
+    transform: scale(1.1); /* Khi hover vào hình ảnh, zoom ảnh lên 20% */
+}
+
+#Main .BookUpdate .Card:hover i,
+#Main .BookUpdate .Card:hover span,
+#Main .BookUpdate .Card:hover .Title {
+    color: var(--primaty-color);
+}
+
+/* end Main css */
+
+/* start Main css */
+
+#Footer .nav-link {
+    color: #000;
+}
+
+#Footer .nav-link:hover {
+    color: #00dc82;
+}
+
+/* end Main css */
+
+/* Responsive */
+
+#Main .BookUpdate .Information .InfoChapter span {
+    zoom: .7;
+}
+#Main .BookUpdate .Information ul {
+    zoom: .7;
+}
+
+@media (min-width: 400px) {
+    #Main .BookUpdate .Information .InfoChapter span {
+        zoom: .8;
+    }
+    #Main .BookUpdate .Information ul {
+        zoom: .9;
+    }
+}
+
+@media (min-width: 450px) {
+    #Main .BookUpdate .Information .InfoChapter span {
+        zoom: .9;
+    }
+    #Main .BookUpdate .Information ul {
+        zoom: 1;
+    }
+}
+
+@media (min-width: 500px) {
+    #Main .BookUpdate .Information .InfoChapter span {
+        zoom: 1;
+    }
+}

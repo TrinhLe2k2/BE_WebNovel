@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b7df8c8cd72b4faf9c8e991824c05c04" Name="Diagram1">
+        <EntityTypeShape EntityType="WebNovelModel.BookCategory" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.Book" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.Category" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.Chapter" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.Comment" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.Follow" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.permission" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.Review" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.user_permissions" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebNovelModel.User" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="WebNovelModel.FK__BookCateg__book___46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__BookCateg__categ__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Books__user_id__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Chapters__book_i__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Follows__book_id__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Reviews__book_id__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Comments__chapte__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Comments__user_i__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Follows__user_id__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__user_perm__permi__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__Reviews__user_id__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="WebNovelModel.FK__user_perm__user___59063A47" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,394 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario Baby - @ViewBag.Title</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/font/fontawesome-free-6.4.0-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+
+    @RenderSection("css", false)
+
+</head>
+<body>
+
+    <section id="Header" class="" style="box-shadow: 0px 10px 24px 0px rgba(0, 0, 0, 0.3);">
+        <div class="container">
+            <div class="row my-2">
+                <div class="col-4 d-flex">
+                    <a class="navbar-brand d-flex align-items-center Logo" href="./index.html">
+                        <img class="" src="https://ncomics.vercel.app/_nuxt/logo.83be12af.svg" alt="NComics">
+                        <h3 class="">Refresh</h3>
+                    </a>
+                </div>
+                <div class="col-sm-4 d-flex order-1 order-sm-0">
+                    <form data-v-eb07a472="a123" class="d-flex align-items-stretch rounded-pill m-2 w-100 custom-form bg-white">
+                        <input type="text" list="datalistOptions"
+                               class="w-100 py-1 border-0 ps-3 rounded-pill flex-fill" placeholder="Search"
+                               style="outline: none;">
+                        <button type="submit" class="px-3 border-0 rounded-pill bg-body">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+
+                        <datalist id="datalistOptions">
+                            <option value="San Francisco">
+                            <option value="New York">
+                            <option value="Seattle">
+                            <option value="Los Angeles">
+                            <option value="Chicago">
+                        </datalist>
+                    </form>
+                </div>
+                <div class="col-8 col-sm-4 d-flex justify-content-end align-items-center">
+                    <a href="#" data-bs-target="#AccountModal" data-bs-toggle="modal" class="account">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="fw-bold">Tài khoản</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row my-2">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="./index.html">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown Category">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">
+                            <i class="bi bi-tags-fill"></i>
+                            Thể Loại
+                        </a>
+                        <ul class="dropdown-menu Dropdown-Menu text-center">
+                            <div class="container">
+                                <div class="row gx-0">
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Trọng Sinh</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Trọng Sinh</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Trọng Sinh</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Trọng Sinh</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Trọng Sinh</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Trọng Sinh</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Trọng Sinh</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Huyền Huyễn</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tiên Hiệp</a>
+                                    </div>
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="Category-Link d-block w-100 h-100 py-2">Tất cả</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./BoLoc.html">
+                            <i class="fa-solid fa-filter"></i>
+                            <span>Bộ Lọc</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section id="Navigation">
+        <input type="checkbox" hidden id="Bar">
+        <label for="Bar" class="cursorPointer fixed-top p-3" style="width: 50px;"><i class="fa-solid fa-bars-progress">Home</i></label>
+    </section>
+
+    <script>
+        // js header
+        var chkBar = document.querySelector('#Navigation #Bar');
+        var labelChekBar = document.querySelector('#Navigation label');
+        var header = document.querySelector('#Header');
+        chkBar.addEventListener('change', function () {
+            if (this.checked) {
+                header.classList.add('bg-white')
+                header.style.top = '0';
+            } else {
+                header.style.top = '-100%';
+            }
+        })
+
+        document.addEventListener('click', function (event) {
+            if (!header.contains(event.target) && !chkBar.contains(event.target) && !labelChekBar.contains(event.target)) {
+                header.style.top = '-100%';
+                chkBar.checked = false;
+            }
+        });
+
+        var Links = document.querySelectorAll('#Header a');
+        Links.forEach(link => {
+            link.addEventListener('click', function () {
+                chkBar.checked = false;
+            });
+        });
+
+
+    </script>
+
+    <section id="Main" class="my-5">
+        <div class="container">
+            <div class="row g-1">
+                <div class="col-lg-3 SideBar position-relative">
+                    <div class="cursorPointer d-lg-none d-block barBtn">
+                        <input type="checkbox" hidden id="checkNavBar">
+                        <label for="checkNavBar" class="p-2 checkNavBarLabel">
+                            <i class="fa-solid fa-bars">Action</i>
+                        </label>
+                    </div>
+                    <ul class="nav flex-column d-none d-lg-block Navigation w-100">
+                        <li class="nav-item">
+                            <a href="./QuanLyTrangCaNhan.html" class="nav-link"><i class="fa-solid fa-user"></i> Cá nhân</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./TheoDoi.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Theo dõi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./DangTruyen.html" class="nav-link"><i class="fa-solid fa-upload"></i> Đăng truyện</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./TruyenDaDang.html" class="nav-link"><i class="fa-solid fa-book-journal-whills"></i> Truyện đã đăng (2333)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./QuanLyNguoiDung.html" class="nav-link"><i class="fa-solid fa-people-roof"></i> Quản lý người dùng (2333)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./QuanLyTruyen.html" class="nav-link"><i class="fa-solid fa-swatchbook"></i> Quản lý truyện (2333)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./QuanLyTheLoai.html" class="nav-link"><i class="fa-solid fa-earth-americas"></i> Quản lý thể loại (23)</a>
+                        </li>
+                    </ul>
+                </div>
+                <script>
+                    // js navbar
+                    var checkNavBar = document.querySelector('#Main .barBtn #checkNavBar');
+                    var labelcheckbox = document.querySelector('#Main .barBtn .checkNavBarLabel');
+                    var nav = document.querySelector('#Main .Navigation');
+                    checkNavBar.addEventListener('change', function () {
+                        if (checkNavBar.checked) {
+                            nav.classList.remove('d-none');
+                            nav.classList.add('position-absolute');
+                            nav.style = 'z-index: 1; background-color: #fff; border: solid 1px var(--primaty-color); box-shadow: 0 0 4px var(--primaty-color);'
+                        } else {
+                            nav.classList.add('d-none');
+                            nav.classList.remove('position-absolute');
+                            nav.removeAttribute('style');
+                        }
+                    })
+                    document.addEventListener('click', function (event) {
+                        if (!checkNavBar.contains(event.target) && !labelcheckbox.contains(event.target) && !nav.contains(event.target)) {
+                            checkNavBar.checked = false;
+                            nav.classList.add('d-none');
+                            nav.classList.remove('position-absolute');
+                            nav.removeAttribute('style');
+                        }
+                    })
+                </script>
+                @RenderBody()
+            </div>
+        </div>
+    </section>
+
+    <section id="Footer">
+        <div class="container p-5 my-5">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/ktrinh23/">
+                        <i class="fa-brands fa-facebook"></i>
+                        <span>Facebook</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/ktrinh23/">
+                        <i class="fa-brands fa-square-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/ktrinh23/">
+                        <i class="fa-brands fa-discord"></i>
+                        <span>Discord</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+    <section id="Modal">
+        <section>
+            <!-- Login/Register -->
+            <div class="modal fade" id="AccountModal" aria-hidden="true" aria-labelledby="AccountModalLabel"
+                 tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="AccountModalLabel">Đăng Nhập</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" class="" method="post">
+                                <div class="form-group mb-3">
+                                    <label class="col-md-12 my-1 control-label" for="Email">Email</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control" id="Email" name="Email" type="email" value="">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="col-md-12 my-1 control-label" for="Password">Password</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control" id="Password" name="Password" type="password" value="">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="col-md-offset-2 col-md-12">
+                                        <div class="checkbox">
+                                            <input id="RememberMe" name="RememberMe" type="checkbox" value="true">
+                                            <label for="RememberMe">Remember me?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="col-md-offset-2 col-md-12">
+                                        <input type="submit" value="Đăng Nhập" class="btn btn-success">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <span>Bạn chưa có tài khoản?<a href="" data-bs-target="#AccountModal2" data-bs-toggle="modal"> Đăng ký tại đây</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="AccountModal2" aria-hidden="true"
+                 aria-labelledby="AccountModalLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="AccountModalLabel2">Đăng ký</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" class="" method="post">
+                                <div class="form-group mb-3">
+                                    <label class="col-md-12 my-1 control-label" for="UserName">Tên đăng nhập</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control" id="UserName" name="UserName" type="text" value="">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="col-md-12 my-1 control-label" for="Email">Email</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control" id="Email" name="Email" type="email" value="">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="col-md-12 my-1 control-label" for="Password">Mật khẩu</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control" id="Password" name="Password" type="password" value="">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="col-md-12 my-1 control-label" for="Re-Password">Nhập lại mật khẩu</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control" id="Re-Password" name="Re-Password" type="password" value="">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="col-md-offset-2 col-md-12">
+                                        <input type="submit" value="Đăng ký" class="btn btn-success">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" data-bs-target="#AccountModal" data-bs-toggle="modal">Quay lại trang đăng nhập</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- js -->
+    <script src="~/Content/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/assets/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/pagination.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    @RenderSection("script", false)
+
+</body>
+</html>

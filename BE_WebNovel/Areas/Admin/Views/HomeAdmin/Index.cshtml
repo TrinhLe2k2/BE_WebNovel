@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Chỉnh sửa trang cá nhân";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@section css {
+    <link href="~/Areas/Admin/Content/css/HomeAdminIndex.css" rel="stylesheet" />
+}
+
+<div class="col-12 col-lg-9">
+    <div class="container position-relative User">
+        <div class="Card row g-0">
+            <div class="Card-img col-12 position-relative Background-User">
+                <img src="~/Content/assets/img/CoverImgae/clr.jpg" class="position-absolute rounded-top" style="width:100%; height: 100%; object-fit: cover;">
+                <div class="Overlay-Card"></div>
+            </div>
+        </div>
+        <div class="row position-absolute w-100 p-2 align-items-center" style="bottom: 50%; transform: translateY(50%);">
+            <div class="UserProfile col-5 col-sm-3 col-xl-2">
+                <div class="Avatar position-relative rounded-circle" style="padding-bottom: 100%; box-shadow: 0 0 4px #fff;">
+                    <img src="~/Content/assets/img/CoverImgae/clr.jpg" alt="" class="w-100 h-100 position-absolute rounded-circle" style="object-fit: cover;">
+                </div>
+            </div>
+            <div class="Information col-12 col-sm-9 col-xl-10">
+                <h4 class="UserName text-white fw-bold" style="text-shadow: 0 0 4px #000;">
+                    Kinugasa Syougo
+                </h4>
+                <div class="Information_Action">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-white disabled" style="text-shadow: 0 0 4px #000;">
+                                Lượt Theo Dõi: 2000
+                            </a>
+                        </li>
+                        <li class="nav-item rounded-pill">
+                            <a href="#" class="nav-link text-white rounded-pill" style="text-shadow: 0 0 4px #000;">
+                                Xin quyền tác giả
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-3">
+        <form action="">
+            <div class="my-2">
+                <label class="form-label" for="">Ảnh đại diện: </label>
+                <input class="form-control" type="file">
+            </div>
+            <div class="my-2">
+                <label class="form-label" for="">Ảnh bìa: </label>
+                <input class="form-control" type="file">
+            </div>
+            <div class="my-2">
+                <label class="form-label" for="">Tên: </label>
+                <input class="form-control" type="text" placeholder="Nhập tên" value="Mario Baby">
+            </div>
+            <div class="my-2">
+                <label class="form-label" for="">Email: </label>
+                <input class="form-control" type="email" placeholder="Nhập email" value="khanhtrinh.phuyen@gmail.com">
+            </div>
+            <div class="my-2">
+                <label class="form-label" for="">Mật khẩu hiện tại: </label>
+                <input class="form-control" type="password" placeholder="Nhập mật khẩu hiện tại">
+            </div>
+            <div class="my-2">
+                <label class="form-label" for="">Mật khẩu mới: </label>
+                <input class="form-control" type="password" placeholder="Nhập mật khẩu mới">
+            </div>
+            <div class="my-2">
+                <label class="form-label" for="">Xác nhận lại mật khẩu: </label>
+                <input class="form-control" type="password" placeholder="Nhập lại mật khẩu">
+            </div>
+            <input class="my-3 p-1 px-3" type="submit" value="Lưu lại">
+        </form>
+    </div>
+</div>
+
+@section script {
+    <script>
+        // js side bar
+        var linksSideBar = document.querySelectorAll('#Main .SideBar .nav-link');
+        function removeActive() {
+            linksSideBar.forEach(element => {
+                element.classList.remove('active');
+            })
+        }
+        function start() {
+            removeActive();
+            linksSideBar.forEach(element => {
+                if (element.textContent.includes('Cá nhân')) {
+                    element.classList.add('active')
+                }
+            })
+        }
+        start();
+    </script>
+}

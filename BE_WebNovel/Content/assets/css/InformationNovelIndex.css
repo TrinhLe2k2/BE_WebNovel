@@ -1,0 +1,257 @@
+﻿:root {
+    --primaty-color: #00dc82;
+    --text-bg: #fff;
+    --text-color: #000;
+}
+
+* {
+    /* user-select: none; */
+}
+
+body {
+    background-image: linear-gradient( #00dc8035, #fff);
+}
+
+#Main a {
+    color: #000;
+}
+
+#Main .InformationNovel {
+    border: solid 4px #fff;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+    #Main .InformationNovel .Poster {
+        padding-bottom: 140%;
+    }
+
+        #Main .InformationNovel .Poster img {
+            object-fit: cover;
+            border: solid 2px var(--primaty-color);
+        }
+
+    #Main .InformationNovel .Introduction .Avater {
+        width: 32px;
+        height: 32px;
+    }
+
+    #Main .InformationNovel .Introduction .UserName {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    #Main .InformationNovel .Introduction .Category-List {
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* Số dòng tối đa muốn hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #Main .InformationNovel .Introduction .nav-link {
+        display: inline-block;
+        margin: 0 4px;
+        border: solid 2px var(--primaty-color);
+        font-weight: 500;
+        border-radius: 4px;
+    }
+
+        #Main .InformationNovel .Introduction .nav-link:hover {
+            background-color: var(--primaty-color);
+            color: var(--text-bg);
+        }
+
+    #Main .InformationNovel .Introduction .FeedbackWrapper {
+        font-weight: 500;
+    }
+
+    #Main .InformationNovel .Introduction .Description-Novel p {
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Số dòng tối đa muốn hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: justify;
+        hyphens: auto;
+        margin-bottom: 0;
+    }
+
+    #Main .InformationNovel .Introduction .Action a {
+        font-weight: 500;
+        border: solid 2px var(--primaty-color);
+        border-radius: 4px;
+    }
+
+        #Main .InformationNovel .Introduction .Action a:hover {
+            opacity: 0.5;
+        }
+
+    #Main .InformationNovel .Introduction .Action .Reading a {
+        background-color: var(--primaty-color);
+        color: var(--text-bg);
+    }
+
+    #Main .InformationNovel .Introduction .Action .Following a {
+        color: var(--primaty-color);
+    }
+
+#Main .ActionNovel .nav-tabs .nav-item .nav-link {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+    #Main .ActionNovel .nav-tabs .nav-item .nav-link.active {
+        color: #00dc82;
+        background-color: transparent;
+        border: none;
+    }
+
+#Main .ActionNovel .tab-content #infomation-tab-pane .Description-Novel a:hover {
+    color: var(--primaty-color);
+}
+
+#Main .ActionNovel .tab-content #infomation-tab-pane .Introduction p {
+    text-align: justify;
+    hyphens: auto;
+    /* white-space: pre-line; */
+    margin-bottom: 0;
+}
+
+#Main .ActionNovel .tab-content .UserProfile .Information .Action .nav-item a:hover {
+    background-color: var(--primaty-color);
+    color: #fff;
+    border-radius: var(--bs-border-radius-pill)
+}
+
+#Main .ActionNovel .tab-content .UserProfile {
+    border: solid 1px #00dc82;
+}
+
+    #Main .ActionNovel .tab-content .UserProfile .Avatar {
+        padding-bottom: 75%;
+    }
+
+        #Main .ActionNovel .tab-content .UserProfile .Avatar img {
+            object-fit: cover;
+        }
+
+#Main .ActionNovel .tab-content .paginationjs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    #Main .ActionNovel .tab-content .paginationjs .paginationjs-pages ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+        #Main .ActionNovel .tab-content .paginationjs .paginationjs-pages ul li {
+        }
+
+    #Main .ActionNovel .tab-content .paginationjs .paginationjs-pages li > a {
+        display: block;
+        padding: 4px 24px;
+        border: solid 1px #33333340;
+        cursor: pointer;
+    }
+
+        #Main .ActionNovel .tab-content .paginationjs .paginationjs-pages li > a:hover {
+            background-color: var(--primaty-color);
+        }
+
+    #Main .ActionNovel .tab-content .paginationjs .paginationjs-pages li.active a {
+        background-color: var(--primaty-color);
+        border: solid 1px var(--primaty-color);
+        color: #fff;
+    }
+
+    #Main .ActionNovel .tab-content .paginationjs .paginationjs-go-input {
+        margin: 0 8px;
+        min-width: 59px;
+        max-width: 60px;
+    }
+
+        #Main .ActionNovel .tab-content .paginationjs .paginationjs-go-input input {
+            height: 100%;
+            width: 100%;
+        }
+
+    #Main .ActionNovel .tab-content .paginationjs .paginationjs-go-button input {
+        height: 100%;
+        padding: 0 16px;
+    }
+
+#Main .ActionNovel .tab-content .Box-Chapter-Link {
+    border: solid 1px #33333340;
+}
+
+    #Main .ActionNovel .tab-content .Box-Chapter-Link:hover {
+        background-color: #00dc803f;
+    }
+
+#Main .ActionNovel .tab-content .Chapter-Link {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Số dòng tối đa muốn hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#Main .ActionNovel .tab-content #Comment-tab-pane .list-group-item {
+    background-color: transparent;
+}
+
+#Main .ActionNovel .tab-content #Rate-tab-pane .rating-container .RateList .Rate #Tab-Action ul.list-group,
+#Main .ActionNovel .tab-content #Comment-tab-pane .Comment-List .Comment #Tab-Action ul.list-group {
+    width: 500%;
+    border: solid 1px #333;
+    background-color: #fff;
+    right: 0;
+}
+
+#Main .ActionNovel .tab-content #Comment-tab-pane .Comment-List .Comment-Child .Action .nav-link.active,
+#Main .ActionNovel .tab-content #Comment-tab-pane .Comment-List .Comment-Parent .Action .nav-link.active {
+    color: var(--primaty-color);
+}
+
+/* rate */
+.rating-container {
+    text-align: center;
+}
+
+.stars {
+    font-size: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.star {
+    color: #ddd;
+    transition: color 0.3s;
+}
+
+    .star.active,
+    .star:hover {
+        color: gold;
+    }
+
+.rating-text {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+
+/* Tab action */
+
+#Tab-Action .Item-Link {
+}
+
+    #Tab-Action .Item-Link:hover {
+        background-color: #00dc82;
+        color: #fff;
+    }
