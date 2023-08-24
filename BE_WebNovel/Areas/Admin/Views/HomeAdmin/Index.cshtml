@@ -1,4 +1,4 @@
-﻿
+﻿﻿@model BE_WebNovel.Models.User
 @{
     ViewBag.Title = "Chỉnh sửa trang cá nhân";
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
@@ -12,19 +12,19 @@
     <div class="container position-relative User">
         <div class="Card row g-0">
             <div class="Card-img col-12 position-relative Background-User">
-                <img src="~/Content/assets/img/CoverImgae/clr.jpg" class="position-absolute rounded-top" style="width:100%; height: 100%; object-fit: cover;">
+                <img src="~/Content/assets/img/User/Background/@Model.user_background" class="position-absolute rounded-top" style="width:100%; height: 100%; object-fit: cover;">
                 <div class="Overlay-Card"></div>
             </div>
         </div>
         <div class="row position-absolute w-100 p-2 align-items-center" style="bottom: 50%; transform: translateY(50%);">
             <div class="UserProfile col-5 col-sm-3 col-xl-2">
                 <div class="Avatar position-relative rounded-circle" style="padding-bottom: 100%; box-shadow: 0 0 4px #fff;">
-                    <img src="~/Content/assets/img/CoverImgae/clr.jpg" alt="" class="w-100 h-100 position-absolute rounded-circle" style="object-fit: cover;">
+                    <img src="~/Content/assets/img/User/Avatar/@Model.user_avatar" alt="" class="w-100 h-100 position-absolute rounded-circle" style="object-fit: cover;">
                 </div>
             </div>
             <div class="Information col-12 col-sm-9 col-xl-10">
                 <h4 class="UserName text-white fw-bold" style="text-shadow: 0 0 4px #000;">
-                    Kinugasa Syougo
+                    @Model.username
                 </h4>
                 <div class="Information_Action">
                     <ul class="nav">
@@ -43,38 +43,87 @@
             </div>
         </div>
     </div>
-    <div class="container my-3">
-        <form action="">
-            <div class="my-2">
-                <label class="form-label" for="">Ảnh đại diện: </label>
-                <input class="form-control" type="file">
+    <div class="container my-3" id="FormUpdateAccount">
+        <form action="~/Admin/HomeAdmin/Index" enctype="multipart/form-data" method="post">
+            @Html.AntiForgeryToken()
+            <input class="form-control" hidden type="text" name="user_id" value="@Model.user_id">
+            <div class="my-2 form-group">
+                <label class="form-label" for="Avatar">Ảnh đại diện: </label>
+                <input class="form-control" id="Avatar" type="file" name="avatar" />
             </div>
-            <div class="my-2">
-                <label class="form-label" for="">Ảnh bìa: </label>
-                <input class="form-control" type="file">
+            <div class="my-2 form-group">
+                <label class="form-label" for="Background">Ảnh bìa: </label>
+                <input class="form-control" id="Background" type="file" name="background">
             </div>
-            <div class="my-2">
-                <label class="form-label" for="">Tên: </label>
-                <input class="form-control" type="text" placeholder="Nhập tên" value="Mario Baby">
+            <div class="my-2 form-group">
+                <label class="form-label" for="FullName">Họ Tên: </label><span id="UpdateErrorMessage1" class="text-danger ms-3 float-end"></span>
+                <input class="form-control" id="FullName" type="text" placeholder="Họ Tên" value="@Model.username" name="username">
             </div>
-            <div class="my-2">
-                <label class="form-label" for="">Email: </label>
-                <input class="form-control" type="email" placeholder="Nhập email" value="khanhtrinh.phuyen@gmail.com">
+            <div class="my-2 form-group">
+                <label class="form-label" for="">Email: </label><span id="UpdateErrorMessage" class="text-danger ms-3 float-end"></span>
+                <input class="form-control bg-light" type="email" placeholder="Nhập email" value="@Model.email" name="email" readonly>
             </div>
-            <div class="my-2">
-                <label class="form-label" for="">Mật khẩu hiện tại: </label>
-                <input class="form-control" type="password" placeholder="Nhập mật khẩu hiện tại">
+            <div class="my-2 form-group">
+                <label class="form-label" for="Current-Password">Mật khẩu hiện tại: </label><span id="UpdateErrorMessage2" class="text-danger ms-3 float-end">Trường này bắt buộc</span>
+                <input class="form-control" type="password" id="Current-Password" placeholder="Nhập mật khẩu hiện tại" style="@ViewBag.Border" name="password">
+                <span class="text-danger">@ViewBag.MessPass</span>
             </div>
-            <div class="my-2">
-                <label class="form-label" for="">Mật khẩu mới: </label>
-                <input class="form-control" type="password" placeholder="Nhập mật khẩu mới">
+            <div class="my-2 form-group">
+                <label class="form-label" for="New-Password">Mật khẩu mới: </label><span id="UpdateErrorMessage3" class="text-danger ms-3 float-end"></span>
+                <input class="form-control" type="password" placeholder="Nhập mật khẩu mới" id="New-Password" name="NewPassword">
+                <span class="text-danger">@ViewBag.MessNewPass</span>
             </div>
-            <div class="my-2">
-                <label class="form-label" for="">Xác nhận lại mật khẩu: </label>
-                <input class="form-control" type="password" placeholder="Nhập lại mật khẩu">
+            <div class="my-2 form-group">
+                <label class="form-label" for="Re-Password">Xác nhận lại mật khẩu: </label><span id="UpdateErrorMessage4" class="text-danger ms-3 float-end"></span>
+                <input class="form-control" type="password" placeholder="Nhập lại mật khẩu" id="Re-Password" name="RePassword">
+                <span class="text-danger">@ViewBag.MessRePass</span>
             </div>
             <input class="my-3 p-1 px-3" type="submit" value="Lưu lại">
         </form>
+        <!-- js update form -->
+        <script>
+            var FullName = document.querySelector('#FormUpdateAccount .form-group input#FullName');
+            var currentPassword = document.querySelector('#FormUpdateAccount .form-group input#Current-Password');
+            var newPassword = document.querySelector('#FormUpdateAccount .form-group input#New-Password');
+            var rePassword = document.querySelector('#FormUpdateAccount .form-group input#Re-Password');
+
+            FullName.addEventListener('blur', function () {
+                if (!this.value) {
+                    document.querySelector('#UpdateErrorMessage1').textContent = "Vui lòng nhập trường này";
+                }
+            })
+            FullName.addEventListener('input', function () {
+                document.querySelector('#UpdateErrorMessage1').textContent = "";
+            })
+
+            currentPassword.addEventListener('blur', function () {
+                if (!this.value) {
+                    document.querySelector('#UpdateErrorMessage2').textContent = "Vui lòng nhập trường này";
+                }
+            })
+            currentPassword.addEventListener('input', function () {
+                document.querySelector('#UpdateErrorMessage2').textContent = "";
+            })
+
+            newPassword.addEventListener('input', function () {
+                if (rePassword.value != newPassword.value) {
+                    document.querySelector('#UpdateErrorMessage4').textContent = "Mật khẩu xác nhận không chính xác";
+                } else {
+                    document.querySelector('#UpdateErrorMessage3').textContent = "";
+                    document.querySelector('#UpdateErrorMessage4').textContent = "";
+                }
+            })
+
+            rePassword.addEventListener('input', function () {
+                if (rePassword.value != newPassword.value) {
+                    document.querySelector('#UpdateErrorMessage3').textContent = "Mật khẩu xác nhận không chính xác";
+                } else {
+                    document.querySelector('#UpdateErrorMessage3').textContent = "";
+                    document.querySelector('#UpdateErrorMessage4').textContent = "";
+                }
+            })
+
+        </script>
     </div>
 </div>
 
@@ -96,5 +145,9 @@
             })
         }
         start();
+    </script>
+
+    <script>
+
     </script>
 }

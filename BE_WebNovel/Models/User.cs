@@ -28,9 +28,7 @@ namespace BE_WebNovel.Models
         public int user_id { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập trường này")]
         public string username { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập trường này")]
         public string password { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập trường này")]
         public string email { get; set; }
         public string user_avatar { get; set; }
         public string user_background { get; set; }

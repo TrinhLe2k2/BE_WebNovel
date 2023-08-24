@@ -45,10 +45,26 @@
                     </form>
                 </div>
                 <div class="col-8 col-sm-4 d-flex justify-content-end align-items-center">
-                    <a href="#" data-bs-target="#AccountModal" data-bs-toggle="modal" class="account">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="fw-bold">Tài khoản</span>
-                    </a>
+                    @{
+                        if (Session["user"] != null)
+                        {
+                            var user = (BE_WebNovel.Models.User)HttpContext.Current.Session["user"];
+                            <a href="~/Admin/HomeAdmin/Index/@user.user_id" class="account">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="fw-bold">@user.username</span>
+                            </a>
+                            <a href="~/Account/LogOut" class="account">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" data-bs-target="#AccountModal" data-bs-toggle="modal" class="account">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="fw-bold">Tài khoản</span>
+                            </a>
+                        }
+                    }
                 </div>
             </div>
             <div class="row my-2">
@@ -202,7 +218,7 @@
                     </div>
                     <ul class="nav flex-column d-none d-lg-block Navigation w-100">
                         <li class="nav-item">
-                            <a href="./QuanLyTrangCaNhan.html" class="nav-link"><i class="fa-solid fa-user"></i> Cá nhân</a>
+                            <a href="~/Admin/HomeAdmin/Index" class="nav-link"><i class="fa-solid fa-user"></i> Cá nhân</a>
                         </li>
                         <li class="nav-item">
                             <a href="./TheoDoi.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Theo dõi</a>
@@ -380,6 +396,24 @@
                 </div>
             </div>
         </section>
+
+        <section>
+            <!-- Mess success -->
+            <button type="button" class="btn btn-primary"  id="liveToastBtn">ShowMessage</button>
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" style="border: solid 2px @ViewBag.Color;">
+                    <div class="toast-header">
+                        <strong class="me-auto" style="color: @ViewBag.Color">Thông báo</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        @ViewBag.ToastContent
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </section>
 
     <!-- js -->
@@ -389,6 +423,25 @@
     <script src="~/Content/assets/js/pagination.js"></script>
     <script src="~/Content/assets/js/app.js"></script>
     @RenderSection("script", false)
+
+    <!-- js Toast-->
+    <script>
+        const toastTrigger = document.getElementById('liveToastBtn')
+        const toastLiveExample = document.getElementById('liveToast')
+
+        if (toastTrigger) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastTrigger.addEventListener('click', () => {
+                toastBootstrap.show()
+            })
+        }
+    </script>
+    @*@if(ViewBag.isError == 1 || ViewBag.isError == 2)
+    {
+        <script>
+            document.getElementById("liveToastBtn").click();
+        </script>
+    }*@
 
 </body>
 </html>

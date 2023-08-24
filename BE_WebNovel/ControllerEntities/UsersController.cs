@@ -14,6 +14,11 @@ namespace BE_WebNovel.ControllerEntities
     {
         private WebNovelEntities db = new WebNovelEntities();
 
+        public ActionResult Index2()
+        {
+            return View();
+        }
+
         // GET: Users
         public ActionResult Index()
         {
