@@ -78,7 +78,7 @@
                 <input class="form-control" type="password" placeholder="Nhập lại mật khẩu" id="Re-Password" name="RePassword">
                 <span class="text-danger">@ViewBag.MessRePass</span>
             </div>
-            <input class="my-3 p-1 px-3" type="submit" value="Lưu lại">
+            <input class="my-3 p-1 px-3 btn btn-success" type="submit" value="Lưu lại">
         </form>
         <!-- js update form -->
         <script>
@@ -116,7 +116,7 @@
 
             rePassword.addEventListener('input', function () {
                 if (rePassword.value != newPassword.value) {
-                    document.querySelector('#UpdateErrorMessage3').textContent = "Mật khẩu xác nhận không chính xác";
+                    document.querySelector('#UpdateErrorMessage4').textContent = "Mật khẩu xác nhận không chính xác";
                 } else {
                     document.querySelector('#UpdateErrorMessage3').textContent = "";
                     document.querySelector('#UpdateErrorMessage4').textContent = "";

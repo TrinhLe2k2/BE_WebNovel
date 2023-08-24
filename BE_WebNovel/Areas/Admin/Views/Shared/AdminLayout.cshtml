@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row my-2">
                 <div class="col-4 d-flex">
-                    <a class="navbar-brand d-flex align-items-center Logo" href="./index.html">
+                    <a class="navbar-brand d-flex align-items-center Logo" href="~/Home/Index">
                         <img class="" src="https://ncomics.vercel.app/_nuxt/logo.83be12af.svg" alt="NComics">
                         <h3 class="">Refresh</h3>
                     </a>
@@ -399,7 +399,7 @@
 
         <section>
             <!-- Mess success -->
-            <button type="button" class="btn btn-primary"  id="liveToastBtn">ShowMessage</button>
+            <button type="button" class="btn btn-primary" hidden id="liveToastBtn">ShowMessage</button>
 
             <div class="toast-container position-fixed bottom-0 end-0 p-3">
                 <div id="liveToast" class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" style="border: solid 2px @ViewBag.Color;">
@@ -436,12 +436,14 @@
             })
         }
     </script>
-    @*@if(ViewBag.isError == 1 || ViewBag.isError == 2)
+
+    <!-- Active Toast-->
+    @if (ViewBag.isError != null)
     {
         <script>
             document.getElementById("liveToastBtn").click();
         </script>
-    }*@
+    }
 
 </body>
 </html>

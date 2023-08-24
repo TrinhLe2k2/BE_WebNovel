@@ -47,14 +47,11 @@ namespace BE_WebNovel.Areas.Admin.Controllers
         public ActionResult Index([Bind(Include = "user_id,username,password,email,user_avatar,user_background,created_at")] User user, HttpPostedFileBase avatar, HttpPostedFileBase background, string NewPassword, string RePassword)
         {
             var CurrentUser = (BE_WebNovel.Models.User)HttpContext.Session["user"];
+
             // Cập nhật giá trị mặc định cho user
             user.created_at = CurrentUser.created_at;
             if (ModelState.IsValid && user.password == CurrentUser.password)
             {
-                ViewBag.isError = 2;
-                ViewBag.Color = "#00dc82";
-                ViewBag.ToastContent = "Cập nhật thành công";
-
                 #region Xử lý ảnh
                 //Lưu avatar
                 if (avatar != null && avatar.ContentLength > 0)
@@ -120,8 +117,10 @@ namespace BE_WebNovel.Areas.Admin.Controllers
                 // Lưu db
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                
-                return Redirect("~/Admin/HomeAdmin/Index");
+                //return Redirect("~/Admin/HomeAdmin/Index");
+                Session["user"] = user;
+                ToastErrorUpdateAccount(false);
+                return View(user);
             }
             else
             {
@@ -143,13 +142,26 @@ namespace BE_WebNovel.Areas.Admin.Controllers
                     ViewBag.Border = "border: solid 2px #dc3545";
                 }
                 #endregion
-                
-                ViewBag.isError = 1;
-                ViewBag.Color = "#dc3545";
-                ViewBag.ToastContent = "Cập nhật thất bại";
+                ToastErrorUpdateAccount(true);
                 return View(CurrentUser);
             }
             
+        }
+
+        void ToastErrorUpdateAccount(bool isError)
+        {
+            if(isError)
+            {
+                ViewBag.isError = true;
+                ViewBag.Color = "#dc3545";
+                ViewBag.ToastContent = "Cập nhật thất bại";
+            }
+            else
+            {
+                ViewBag.isError = false;
+                ViewBag.Color = "#00dc82";
+                ViewBag.ToastContent = "Cập nhật thành công";
+            }
         }
     }
 }

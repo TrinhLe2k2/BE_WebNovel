@@ -11,7 +11,8 @@ namespace BE_WebNovel.Controllers
     {
         private WebNovelEntities db = new WebNovelEntities();
 
-        // GET: Account
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(string InputEmail, string inputPassword, int? RememberMe)
         {
             var user = db.Users.SingleOrDefault(m => m.email == InputEmail && m.password == inputPassword);
