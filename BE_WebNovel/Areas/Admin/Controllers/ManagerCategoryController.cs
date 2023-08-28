@@ -1,4 +1,5 @@
-﻿using BE_WebNovel.Models;
+﻿using BE_WebNovel.App_Start;
+using BE_WebNovel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace BE_WebNovel.Areas.Admin.Controllers
     public class ManagerCategoryController : Controller
     {
         private WebNovelEntities db = new WebNovelEntities();
-        // GET: Admin/ManagerCategory
+
+        [AdminAuthorize]
         public ActionResult Index()
         {
             ViewBag.isError = TempData["isError"];

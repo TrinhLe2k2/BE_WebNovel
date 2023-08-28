@@ -1,4 +1,5 @@
-﻿using BE_WebNovel.Models;
+﻿using BE_WebNovel.App_Start;
+using BE_WebNovel.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ namespace BE_WebNovel.Areas.Admin.Controllers
     {
         private WebNovelEntities db = new WebNovelEntities();
         // GET: Admin/PushNovel
+        [AdminAuthorize]
         public ActionResult Index()
         {
             ViewBag.ListCategories = db.Categories.ToList();
@@ -31,9 +33,9 @@ namespace BE_WebNovel.Areas.Admin.Controllers
                 #region Xử lý ảnh
                 if (Poster != null && Poster.ContentLength > 0)
                 {
-                    string formattedDate = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                     // Lưu ảnh
-                    var fileName = formattedDate  + "_Poster_" + Path.GetFileName(Poster.FileName);
+                    string formattedDate = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                    var fileName = formattedDate  + "_Poster_" + CurrentUser.user_id + "_" + Path.GetFileName(Poster.FileName);
                     var imagePath = Path.Combine(Server.MapPath("~/Content/assets/img/Poster/"), fileName);
                     Poster.SaveAs(imagePath);
                     book.book_poster = fileName;
@@ -65,7 +67,7 @@ namespace BE_WebNovel.Areas.Admin.Controllers
 
                 db.Books.Add(book);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect("~/Admin/CreatedNovel/Index");
             }
 
             ViewBag.ListCategories = db.Categories.ToList();

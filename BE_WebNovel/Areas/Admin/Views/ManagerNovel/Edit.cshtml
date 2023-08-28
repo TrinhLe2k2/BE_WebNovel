@@ -1,0 +1,161 @@
+﻿@model BE_WebNovel.Models.Book
+
+@{
+    ViewBag.Title = "Chỉnh sửa truyện";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@section css {
+    <link href="~/Areas/Admin/Content/css/PushNovel.css" rel="stylesheet" />
+}
+
+<div class="col-12 col-lg-9">
+    <div class="container">
+        <h3 class="ms-4 mb-0">Chỉnh sửa truyện - @Model.book_title</h3>
+        <form action="~/Admin/ManagerNovel/Edit" enctype="multipart/form-data" method="post" class="p-5">
+            @Html.AntiForgeryToken()
+            <input type="text" class="form-control" hidden value="@Model.book_id" name="book_id">
+            <input type="text" class="form-control" hidden value="@Model.user_id" name="user_id">
+            <input type="text" class="form-control" hidden value="@Model.book_poster" name="originPoster">
+            <input type="datetime" class="form-control" hidden value="@Model.book_created_at" name="time">
+            <div class="mb-3 row">
+                <label for="NovelName" class="col-xl-2 col-lg-3 col-form-label">Tên truyện: </label>
+                <div class="col-12 col-lg-9 col-xl-10">
+                    <input type="text" class="form-control" id="NovelName" placeholder="Tên truyện" value="@Model.book_title" name="book_title">
+                    @Html.ValidationMessageFor(model => model.book_title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="NovelAuthor" class="col-xl-2 col-lg-3 col-form-label">Tác giả: </label>
+                <div class="col-12 col-lg-9 col-xl-10">
+                    <input type="text" class="form-control" id="NovelAuthor" placeholder="Tác giả" value="@Model.book_author" name="book_author">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="NovelPoster" class="col-xl-2 col-lg-3 col-form-label">Poster truyện: </label>
+                <div class="col-12 col-lg-9 col-xl-10">
+                    <input type="file" class="form-control" id="NovelPoster" name="Poster">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="NovelStatus" class="col-xl-2 col-lg-3 col-form-label">Trạng thái: </label>
+                <div class="col-12 col-lg-9 col-xl-10">
+                    <div class="row">
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="form-check">
+                                @if (@Model.book_status == "Chưa hoàn thành")
+                                {
+                                    <input class="form-check-input" type="radio" id="radio1" checked value="Chưa hoàn thành" name="book_status">
+                                }
+                                else
+                                {
+                                    <input class="form-check-input" type="radio" id="radio1" value="Chưa hoàn thành" name="book_status">
+                                }
+                                <label class="form-check-label" for="radio1">
+                                    Chưa hoàn thành
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="form-check">
+                                @if (@Model.book_status == "Hoàn thành")
+                                {
+                                    <input class="form-check-input" type="radio" id="radio2" checked value="Hoàn thành" name="book_status">
+                                }
+                                else
+                                {
+                                    <input class="form-check-input" type="radio" id="radio2" value="Hoàn thành" name="book_status">
+                                }
+                                <label class="form-check-label" for="radio2">
+                                    Hoàn thành
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="form-check">
+                                @if (@Model.book_status == "Ngừng viết")
+                                {
+                                    <input class="form-check-input" type="radio" id="radio3" checked value="Ngừng viết" name="book_status">
+                                }
+                                else
+                                {
+                                    <input class="form-check-input" type="radio" id="radio3" value="Ngừng viết" name="book_status">
+                                }
+
+                                <label class="form-check-label" for="radio3">
+                                    Ngừng viết
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="NovelCategory" class="col-xl-2 col-lg-3 col-form-label">Thể loại: </label>
+                <div class="col-12 col-lg-9 col-xl-10">
+                    <div class="row">
+                        @foreach (var item in ViewBag.ListCategories)
+                        {
+                            if (Model.BookCategories.SingleOrDefault(m => m.category_id == item.category_id) != null)
+                            {
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="@item.category_id" id="Categor_@item.category_id" checked name="CategoriesList">
+                                        <label class="form-check-label" for="Categor_@item.category_id">
+                                            @item.category_name
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="@item.category_id" id="Categor_@item.category_id" name="CategoriesList">
+                                        <label class="form-check-label" for="Categor_@item.category_id">
+                                            @item.category_name
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="NovelIntroduction" class="col-xl-2 col-lg-3 col-form-label">Giới thiệu: </label>
+                <div class="col-12 col-lg-9 col-xl-10">
+                    <textarea class="form-control" id="NovelIntroduction" name="book_description">@Model.book_description</textarea>
+                    <script>
+                        // Khởi tạo CKEditor
+                        CKEDITOR.replace('NovelIntroduction');
+                    </script>
+                </div>
+            </div>
+            <div class="mb-3 text-end">
+                <input type="submit" class="btn btn-success" value="Cập nhật">
+            </div>
+        </form>
+    </div>
+</div>
+
+@section script {
+    @*<script>
+        // js side bar
+        var linksSideBar = document.querySelectorAll('#Main .SideBar .nav-link');
+        function removeActive() {
+            linksSideBar.forEach(element => {
+                element.classList.remove('active');
+            })
+        }
+        function start() {
+            removeActive();
+            linksSideBar.forEach(element => {
+                if (element.textContent.includes('Đăng truyện')) {
+                    element.classList.add('active')
+                }
+            })
+        }
+        start();
+    </script>*@
+}

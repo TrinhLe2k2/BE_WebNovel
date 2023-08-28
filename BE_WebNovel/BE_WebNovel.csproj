@@ -2680,6 +2680,7 @@
     <Content Include="Areas\Admin\Views\CreatedNovel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PushNovel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManagerCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerNovel\Edit.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
