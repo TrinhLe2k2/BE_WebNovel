@@ -1,4 +1,5 @@
-﻿using BE_WebNovel.Models;
+﻿using BE_WebNovel.App_Start;
+using BE_WebNovel.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,32 +14,37 @@ namespace BE_WebNovel.Areas.Admin.Controllers
     {
         private WebNovelEntities db = new WebNovelEntities();
         // GET: Admin/HomeAdmin
+        [AdminAuthorize]
         public ActionResult Index()
         {
-            // check cookie
-            if (Request.Cookies["LoginCookie"] != null)
-            {
-                string email = Request.Cookies["LoginCookie"]["Email"];
-                string password = Request.Cookies["LoginCookie"]["Password"];
+            //// check cookie
+            //if (Request.Cookies["LoginCookie"] != null)
+            //{
+            //    string email = Request.Cookies["LoginCookie"]["Email"];
+            //    string password = Request.Cookies["LoginCookie"]["Password"];
 
-                var user = db.Users.SingleOrDefault(m => m.email == email && m.password == password);
+            //    var user = db.Users.SingleOrDefault(m => m.email == email && m.password == password);
 
-                if (user != null)
-                {
-                    Session["user"] = user;
-                    return View(user);
-                }
-            } 
-            else
-            {
-                if(Session["user"] !=null)
-                {
-                    var CurrentUser = (BE_WebNovel.Models.User)HttpContext.Session["user"];
-                    var userDB = db.Users.FirstOrDefault(f => f.user_id == CurrentUser.user_id);
-                    return View(userDB);
-                }
-            }
-            return Redirect("~/Home/Index");
+            //    if (user != null)
+            //    {
+            //        Session["user"] = user;
+            //        return View(user);
+            //    }
+            //} 
+            //else
+            //{
+            //    if(Session["user"] !=null)
+            //    {
+            //        var CurrentUser = (BE_WebNovel.Models.User)HttpContext.Session["user"];
+            //        var userDB = db.Users.FirstOrDefault(f => f.user_id == CurrentUser.user_id);
+            //        return View(userDB);
+            //    }
+            //}
+            //return Redirect("~/Home/Index");
+            //return View();
+            var CurrentUser = (BE_WebNovel.Models.User)HttpContext.Session["user"];
+            var userDB = db.Users.FirstOrDefault(f => f.user_id == CurrentUser.user_id);
+            return View(userDB);
         }
 
 

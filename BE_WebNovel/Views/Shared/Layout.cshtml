@@ -28,7 +28,7 @@
         <div class="container">
             <div class="row my-2">
                 <div class="col-4 d-flex">
-                    <a class="navbar-brand d-flex align-items-center Logo" href="./index.html">
+                    <a class="navbar-brand d-flex align-items-center Logo" href="~/Home/Index">
                         <img class="" src="https://ncomics.vercel.app/_nuxt/logo.83be12af.svg" alt="NComics">
                         <h3 class="">Refresh</h3>
                     </a>
@@ -56,7 +56,7 @@
                         if (Session["user"] != null)
                         {
                             var user = (BE_WebNovel.Models.User)HttpContext.Current.Session["user"];
-                            <a href="~/Admin/HomeAdmin/Index/@user.user_id" class="account">
+                            <a href="~/Admin/HomeAdmin/Index" class="account">
                                 <i class="fa-solid fa-user"></i>
                                 <span class="fw-bold">@user.username</span>
                             </a>

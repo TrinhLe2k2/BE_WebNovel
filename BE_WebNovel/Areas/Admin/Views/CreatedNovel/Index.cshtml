@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Truyện đã đăng";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@section css {
+    <link href="~/Areas/Admin/Content/css/CreatedNovelIndex.css" rel="stylesheet" />
+}
+
+<div class="col-12 col-lg-9">
+    <div class="row mb-3">
+        <div class="col-6 ms-auto">
+            <form class="d-flex align-items-stretch rounded-pill m-2 w-100 custom-form bg-white" style="border: solid 2px #00dc82;">
+                <input type="text" class="w-100 py-1 border-0 ps-3 rounded-pill flex-fill" placeholder="Search" style="outline: none;">
+                <button type="submit" class="px-3 border-0 rounded-pill bg-body">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="d-flex justify-content-between my-3 flex-wrap">
+            <h3 class="mb-3">Truyện đã đăng</h3>
+            <a href="./DangTruyen.html" class="btn btn-primary mb-3">Thêm truyện mới</a>
+        </div>
+        <div id="wrapperPages">
+            <div class="data-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Truyện</th>
+                            <th scope="col">QL Chương</th>
+                            <th scope="col">Trạng Thái</th>
+                            <th scope="col">Hành Động</th>
+                            <th scope="col">Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><a href="./ThongTinTruyen.html">Cổ Chân Nhân</a></td>
+                            <td><a href="./QuanLyChapter.html">2333 Chương</a></td>
+                            <td>Ngừng viết</td>
+                            <td>
+                                <a href="#" data-bs-target="#EditNovelModalToggle" data-bs-toggle="modal">Sửa</a> |
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#Novel1DeleteModal">Xóa</a>
+
+                                <div class="modal fade" id="Novel1DeleteModal" tabindex="-1" aria-labelledby="Novel1DeleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="Novel1DeleteModalLabel">Xác nhận xóa</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                bạn có chắc muốn xóa truyện "Cổ Chân Nhân" không?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                <a href="#" class="btn btn-primary">Xóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Đã duyệt</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><a href="#">Vạn Cổ Tối Cường Tông</a></td>
+                            <td><a href="#">2333 Chương</a></td>
+                            <td>Hoàn thành</td>
+                            <td>
+                                <a href="#" data-bs-target="#EditNovelModalToggle" data-bs-toggle="modal">Sửa</a> |
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#Novel2DeleteModal">Xóa</a>
+
+                                <div class="modal fade" id="Novel2DeleteModal" tabindex="-1" aria-labelledby="Novel2DeleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="Novel2DeleteModalLabel">Xác nhận xóa</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                bạn có chắc muốn xóa truyện "Cổ Chân Nhân" không?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                <a href="#" class="btn btn-primary">Xóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Chưa duyệt</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="pagination-ForNovels" class="my-5"></div>
+        </div>
+
+    </div>
+</div>
+
+@section script{
+    <script>
+        // js side bar
+        var linksSideBar = document.querySelectorAll('#Main .SideBar .nav-link');
+        function removeActive() {
+            linksSideBar.forEach(element => {
+                element.classList.remove('active');
+            })
+        }
+        function start() {
+            removeActive();
+            linksSideBar.forEach(element => {
+                if (element.textContent.includes('Truyện đã đăng')) {
+                    element.classList.add('active')
+                }
+            })
+        }
+        start();
+    </script>
+}

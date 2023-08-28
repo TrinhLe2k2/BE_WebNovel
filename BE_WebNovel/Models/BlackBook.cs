@@ -12,14 +12,13 @@ namespace BE_WebNovel.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BookCategory
+    public partial class BlackBook
     {
-        public int BookCategory_id { get; set; }
-        public Nullable<int> book_id { get; set; }
-        public Nullable<int> category_id { get; set; }
-        public string category_note { get; set; }
+        public int blackId { get; set; }
+        public Nullable<int> bookId { get; set; }
+        public string note { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
     
-        public virtual Category Category { get; set; }
         public virtual Book Book { get; set; }
     }
 }

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<BE_WebNovel.Models.Book>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.book_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.book_author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.book_description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.book_poster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.book_created_at)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.book_status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.username)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_poster)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_created_at)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.username)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.book_id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.book_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.book_id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

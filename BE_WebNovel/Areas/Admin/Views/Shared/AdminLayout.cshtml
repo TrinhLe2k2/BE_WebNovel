@@ -1,4 +1,5 @@
 ﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +12,11 @@
     <link rel="stylesheet" href="~/Content/assets/font/fontawesome-free-6.4.0-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/Content/assets/css/style.css">
-
+    <link href="~/Areas/Admin/Content/css/pagination.css" rel="stylesheet" />
     @RenderSection("css", false)
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
 
+    <script src="~/Content/assets/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 
@@ -224,19 +227,19 @@
                             <a href="./TheoDoi.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Theo dõi</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./DangTruyen.html" class="nav-link"><i class="fa-solid fa-upload"></i> Đăng truyện</a>
+                            <a href="~/Admin/PushNovel/Index" class="nav-link"><i class="fa-solid fa-upload"></i> Đăng truyện</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./TruyenDaDang.html" class="nav-link"><i class="fa-solid fa-book-journal-whills"></i> Truyện đã đăng (2333)</a>
+                            <a href="~/Admin/CreatedNovel/Index" class="nav-link"><i class="fa-solid fa-book-journal-whills"></i> Truyện đã đăng (2333)</a>
                         </li>
                         <li class="nav-item">
                             <a href="./QuanLyNguoiDung.html" class="nav-link"><i class="fa-solid fa-people-roof"></i> Quản lý người dùng (2333)</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./QuanLyTruyen.html" class="nav-link"><i class="fa-solid fa-swatchbook"></i> Quản lý truyện (2333)</a>
+                            <a href="~/Admin/ManagerNovel/Index" class="nav-link"><i class="fa-solid fa-swatchbook"></i> Quản lý truyện (2333)</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./QuanLyTheLoai.html" class="nav-link"><i class="fa-solid fa-earth-americas"></i> Quản lý thể loại (23)</a>
+                            <a href="~/Admin/ManagerCategory/Index" class="nav-link"><i class="fa-solid fa-earth-americas"></i> Quản lý thể loại (@ViewBag.CountCategories)</a>
                         </li>
                     </ul>
                 </div>
@@ -414,6 +417,7 @@
             </div>
         </section>
 
+        @RenderSection("modal", false)
     </section>
 
     <!-- js -->

@@ -1,0 +1,241 @@
+﻿@model IEnumerable<BE_WebNovel.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@section css {
+    <link href="~/Areas/Admin/Content/css/ManagerCategoryIndex.css" rel="stylesheet" />
+}
+
+<div class="col-12 col-lg-9">
+    <div class="row mb-3">
+        <div class="col-6 ms-auto">
+            <!-- search -->
+            <form action="~/Admin/ManagerCategory/ResultSearchCategory" method="post" id="FormSearch" class="d-flex align-items-stretch rounded-pill m-2 w-100 custom-form bg-white" style="border: solid 2px #00dc82;">
+                @Html.AntiForgeryToken()
+                <input type="text" class="w-100 py-1 border-0 ps-3 rounded-pill flex-fill" placeholder="Search" style="outline: none;">
+                <button type="submit" class="px-3 border-0 rounded-pill bg-body">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="d-flex justify-content-between my-3 flex-wrap">
+            <h3 class="mb-3">Quản Lý Thể Loại</h3>
+            <button class="btn btn-primary mb-3" data-bs-target="#CreateCategoryModal" data-bs-toggle="modal">Thêm thể loại mới</button>
+        </div>
+        <div id="wrapperPages" class="my-3">
+            <div class="data-container">
+
+            </div>
+            <div id="pagination-ForCategories" class="my-5"></div>
+        </div>
+    </div>
+</div>
+
+@section modal {
+    <section>
+        <!-- create Category -->
+        <div class="modal fade" id="CreateCategoryModal" aria-hidden="true" aria-labelledby="CreateCategoryModalLabel"
+             tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="CreateCategoryModalLabel">Thêm mới Thể Loại</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="~/Admin/ManagerCategory/Create" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group mb-3">
+                                <label class="col-md-12 my-1 control-label" for="Category">Tên thể loại: </label>
+                                <div class="col-md-12">
+                                    <input class="form-control" id="Category" type="text" name="category_name">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="col-md-offset-2 col-md-12 text-end">
+                                    <input type="submit" value="Thêm mới" class="btn btn-success">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        @*<button class="btn btn-primary" data-bs-target="#ResultSearchCategory" data-bs-toggle="modal" id="ButtonResultSearchCategory">Result Search Category</button>*@
+        <!-- result search Category -->
+        <div class="modal" tabindex="-1" id="ResultSearchCategory">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Kết quả tìm kiếm</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Thể Loại</th>
+                                        <th class="d-none d-md-table-cell">Ngày Tạo</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<script>
+    $('#FormSearch').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn hành vi gửi mặc định của trình duyệt
+        // Hiển thị hộp thoại tại đây bằng JavaScript hoặc jQuery UI Dialog
+        $("#ButtonResultSearchCategory").click(); // Kích hoạt sự kiện click trên nút
+
+    });
+</script>
+
+
+@section script {
+
+    <script>
+        document.getElementById("liveToastBtn").click();
+    </script>
+
+    <script>
+        // js side bar
+        var linksSideBar = document.querySelectorAll('#Main .SideBar .nav-link');
+        function removeActive() {
+            linksSideBar.forEach(element => {
+                element.classList.remove('active');
+            })
+        }
+        function start() {
+            removeActive();
+            linksSideBar.forEach(element => {
+                if (element.textContent.includes('Quản lý thể loại')) {
+                    element.classList.add('active')
+                }
+            })
+        }
+        start();
+    </script>
+
+    <script>
+        $.ajax({
+            url: '@Url.Action("RenderCategoriesList", "ManagerCategory", new { area = "Admin" })',
+            type: 'POST',
+            success: function (response) {
+                console.log(response);
+                PaginationCategory('ForCategories', response);
+            },
+            error: function () {
+            // Xử lý lỗi (nếu có)
+            }
+        });
+        // js danh sách truyện
+        function PaginationCategory (name, data) {
+            var container = $('#pagination-' + name);
+            if (!container.length) return;
+            var options = {
+                dataSource: data,
+                pageSize: 20,
+                showSizeChanger: false,
+                showGoInput: true,
+                showGoButton: true,
+                autoHidePrevious: true,
+                autoHideNext: true,
+                callback: function (response, pagination) {
+                    window.console && console.log(response, pagination);
+
+                    var dataHtml = `
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Thể Loại</th>
+                                            <th class="d-none d-md-table-cell">Ngày Tạo</th>
+                                            <th>Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                            `;
+                    var currentPage = pagination.pageNumber;
+                    var recordsPerPage = options.pageSize;
+                    $.each(response, function (index, item) {
+                        var displayIndex = (currentPage - 1) * recordsPerPage + index + 1;
+                        dataHtml += `
+                                        <tr>
+                                            <td>${displayIndex}</td>
+                                            <td><a href="#">${item.category_name}</a></td>
+                                            <td class="d-none d-md-table-cell">${item.category_created_at}</td>
+                                            <td>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#Category${item.category_id}DeleteModal">Xóa</a>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="Category${item.category_id}DeleteModal" tabindex="-1" aria-labelledby="Category${item.category_id}DeleteModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="Category${item.category_id}DeleteModalLabel">Xác nhận xóa</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                bạn có chắc muốn xóa thể loại "${item.category_name}" không?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                <a href="/Admin/ManagerCategory/DeleteConfirmed?id=${item.category_id}" class="btn btn-primary">Xóa</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                `;
+                    });
+
+                    dataHtml += `
+                                    </tbody>
+                                </table>
+                            </div>
+                            `;
+
+                    container.prev().html(dataHtml);
+                }
+            };
+
+            //$.pagination(container, options);
+
+            container.addHook('beforeInit', function () {
+                window.console && console.log('beforeInit...');
+            });
+            container.pagination(options);
+
+            container.addHook('beforePageOnClick', function () {
+                window.console && console.log('beforePageOnClick...');
+                //return false
+            });
+        }
+
+    </script>
+
+}

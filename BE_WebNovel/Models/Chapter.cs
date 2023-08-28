@@ -28,8 +28,8 @@ namespace BE_WebNovel.Models
         public Nullable<int> chapter_view { get; set; }
         public Nullable<System.DateTime> chapter_created_at { get; set; }
     
-        public virtual Book Book { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

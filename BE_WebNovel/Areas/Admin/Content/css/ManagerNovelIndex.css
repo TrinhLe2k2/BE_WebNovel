@@ -1,0 +1,130 @@
+﻿:root {
+    --primaty-color: #00dc82;
+    --text-bg: #fff;
+    --text-color: #000;
+}
+
+label,
+.cursorPointer {
+    cursor: pointer;
+}
+
+/* start pagination */
+
+.paginationjs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .paginationjs .paginationjs-pages ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+        .paginationjs .paginationjs-pages ul li {
+        }
+
+    .paginationjs .paginationjs-pages li > a {
+        display: block;
+        padding: 4px 24px;
+        border: solid 1px #33333340;
+        cursor: pointer;
+    }
+
+        .paginationjs .paginationjs-pages li > a:hover {
+            background-color: var(--primaty-color);
+        }
+
+    .paginationjs .paginationjs-pages li.active a {
+        background-color: var(--primaty-color);
+        border: solid 1px var(--primaty-color);
+        color: #fff;
+    }
+
+    .paginationjs .paginationjs-go-input {
+        margin: 0 8px;
+        min-width: 59px;
+        max-width: 60px;
+    }
+
+        .paginationjs .paginationjs-go-input input {
+            height: 100%;
+            width: 100%;
+        }
+
+    .paginationjs .paginationjs-go-button input {
+        height: 100%;
+        padding: 0 16px;
+    }
+
+/* end pagination */
+
+table tbody tr td a {
+    border-bottom: solid 1px transparent;
+}
+
+    table tbody tr td a:hover {
+        border-color: blue;
+    }
+
+#Header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: -100%;
+    transition: all ease-out .3s;
+    z-index: 999;
+}
+
+#Main .SideBar .nav {
+}
+
+#Main .SideBar .nav-link {
+    color: #000;
+    border: solid 1px transparent;
+    transition: all ease 0.3s;
+}
+
+    #Main .SideBar .nav-link:hover,
+    #Main .SideBar .nav-link.active {
+        color: var(--primaty-color);
+        border: solid 1px var(--primaty-color);
+        padding-left: 20px;
+    }
+
+    #Main .SideBar .nav-link.active {
+        font-weight: 500;
+    }
+
+#Main .User .Background-User {
+    padding-bottom: 70%;
+}
+
+#Main .User .Information_Action .nav-link:hover {
+    background-color: var(--primaty-color);
+}
+
+#Main .User {
+    zoom: 0.9;
+}
+
+@media (min-width: 400px) {
+    #Main .User {
+        zoom: 1;
+    }
+}
+
+@media (min-width: 576px) {
+    #Main .User .Background-User {
+        padding-bottom: 33.33%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    #Main .User {
+        zoom: 0.9;
+    }
+}

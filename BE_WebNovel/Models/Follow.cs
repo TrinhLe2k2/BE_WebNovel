@@ -19,7 +19,7 @@ namespace BE_WebNovel.Models
         public Nullable<int> user_id { get; set; }
         public Nullable<System.DateTime> follow_created_at { get; set; }
     
-        public virtual Book Book { get; set; }
         public virtual User User { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

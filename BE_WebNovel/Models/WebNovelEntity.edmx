@@ -4,7 +4,25 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebNovelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WebNovelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BlackBook">
+          <Key>
+            <PropertyRef Name="blackId" />
+          </Key>
+          <Property Name="blackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bookId" Type="int" />
+          <Property Name="note" Type="nvarchar(max)" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BlackUser">
+          <Key>
+            <PropertyRef Name="blackId" />
+          </Key>
+          <Property Name="blackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="note" Type="nvarchar(max)" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
         <EntityType Name="BookCategory">
           <Key>
             <PropertyRef Name="BookCategory_id" />
@@ -25,6 +43,7 @@
           <Property Name="book_description" Type="nvarchar(max)" />
           <Property Name="book_poster" Type="nvarchar(max)" />
           <Property Name="book_created_at" Type="datetime" />
+          <Property Name="book_status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -104,6 +123,34 @@
           <Property Name="user_background" Type="nvarchar(max)" />
           <Property Name="created_at" Type="datetime" />
         </EntityType>
+        <Association Name="FK__BlackBook__bookI__778AC167">
+          <End Role="Books" Type="Self.Books" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlackBook" Type="Self.BlackBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="BlackBook">
+              <PropertyRef Name="bookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BlackUser__userI__73BA3083">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlackUser" Type="Self.BlackUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="BlackUser">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__BookCateg__book___46E78A0C">
           <End Role="Books" Type="Self.Books" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -271,6 +318,8 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="WebNovelModelStoreContainer">
+          <EntitySet Name="BlackBook" EntityType="Self.BlackBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlackUser" EntityType="Self.BlackUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookCategory" EntityType="Self.BookCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
@@ -281,6 +330,14 @@
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_permissions" EntityType="Self.user_permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BlackBook__bookI__778AC167" Association="Self.FK__BlackBook__bookI__778AC167">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="BlackBook" EntitySet="BlackBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BlackUser__userI__73BA3083" Association="Self.FK__BlackUser__userI__73BA3083">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlackUser" EntitySet="BlackUser" />
+          </AssociationSet>
           <AssociationSet Name="FK__BookCateg__book___46E78A0C" Association="Self.FK__BookCateg__book___46E78A0C">
             <End Role="Books" EntitySet="Books" />
             <End Role="BookCategory" EntitySet="BookCategory" />
@@ -330,8 +387,7 @@
             <End Role="user_permissions" EntitySet="user_permissions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebNovelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -343,25 +399,8 @@
           <Property Name="book_id" Type="Int32" />
           <Property Name="category_id" Type="Int32" />
           <Property Name="category_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__BookCateg__book___46E78A0C" FromRole="BookCategory" ToRole="Books" />
           <NavigationProperty Name="Category" Relationship="Self.FK__BookCateg__categ__47DBAE45" FromRole="BookCategory" ToRole="Categories" />
-        </EntityType>
-        <EntityType Name="Book">
-          <Key>
-            <PropertyRef Name="book_id" />
-          </Key>
-          <Property Name="book_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="book_title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="book_author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="book_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="book_poster" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="book_created_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BookCategories" Relationship="Self.FK__BookCateg__book___46E78A0C" FromRole="Books" ToRole="BookCategory" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Books__user_id__3B75D760" FromRole="Books" ToRole="Users" />
-          <NavigationProperty Name="Chapters" Relationship="Self.FK__Chapters__book_i__4222D4EF" FromRole="Books" ToRole="Chapters" />
-          <NavigationProperty Name="Follows" Relationship="Self.FK__Follows__book_id__5535A963" FromRole="Books" ToRole="Follows" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__book_id__5070F446" FromRole="Books" ToRole="Reviews" />
+          <NavigationProperty Name="Book" Relationship="WebNovelModel.FK__BookCateg__book___46E78A0C" FromRole="BookCategory" ToRole="Book" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -383,8 +422,8 @@
           <Property Name="chapter_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="chapter_view" Type="Int32" />
           <Property Name="chapter_created_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Chapters__book_i__4222D4EF" FromRole="Chapters" ToRole="Books" />
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__chapte__4BAC3F29" FromRole="Chapters" ToRole="Comments" />
+          <NavigationProperty Name="Book" Relationship="WebNovelModel.FK__Chapters__book_i__4222D4EF" FromRole="Chapter" ToRole="Book" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -406,8 +445,8 @@
           <Property Name="book_id" Type="Int32" />
           <Property Name="user_id" Type="Int32" />
           <Property Name="follow_created_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Follows__book_id__5535A963" FromRole="Follows" ToRole="Books" />
           <NavigationProperty Name="User" Relationship="Self.FK__Follows__user_id__5629CD9C" FromRole="Follows" ToRole="Users" />
+          <NavigationProperty Name="Book" Relationship="WebNovelModel.FK__Follows__book_id__5535A963" FromRole="Follow" ToRole="Book" />
         </EntityType>
         <EntityType Name="permission">
           <Key>
@@ -427,8 +466,8 @@
           <Property Name="rating" Type="Int32" />
           <Property Name="review_text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Reviews__book_id__5070F446" FromRole="Reviews" ToRole="Books" />
           <NavigationProperty Name="User" Relationship="Self.FK__Reviews__user_id__5165187F" FromRole="Reviews" ToRole="Users" />
+          <NavigationProperty Name="Book" Relationship="WebNovelModel.FK__Reviews__book_id__5070F446" FromRole="Review" ToRole="Book" />
         </EntityType>
         <EntityType Name="user_permissions">
           <Key>
@@ -452,26 +491,13 @@
           <Property Name="user_avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="user_background" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="created_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Books" Relationship="Self.FK__Books__user_id__3B75D760" FromRole="Users" ToRole="Books" />
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__user_i__4CA06362" FromRole="Users" ToRole="Comments" />
           <NavigationProperty Name="Follows" Relationship="Self.FK__Follows__user_id__5629CD9C" FromRole="Users" ToRole="Follows" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__user_id__5165187F" FromRole="Users" ToRole="Reviews" />
           <NavigationProperty Name="user_permissions" Relationship="Self.FK__user_perm__user___59063A47" FromRole="Users" ToRole="user_permissions" />
+          <NavigationProperty Name="Books" Relationship="WebNovelModel.FK__Books__user_id__3B75D760" FromRole="User" ToRole="Book" />
+          <NavigationProperty Name="BlackUsers" Relationship="WebNovelModel.FK__BlackUser__userI__73BA3083" FromRole="User" ToRole="BlackUser" />
         </EntityType>
-        <Association Name="FK__BookCateg__book___46E78A0C">
-          <End Role="Books" Type="Self.Book" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="BookCategory" Type="Self.BookCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Books">
-              <PropertyRef Name="book_id" />
-            </Principal>
-            <Dependent Role="BookCategory">
-              <PropertyRef Name="book_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__BookCateg__categ__47DBAE45">
           <End Role="Categories" Type="Self.Category" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -483,60 +509,6 @@
             </Principal>
             <Dependent Role="BookCategory">
               <PropertyRef Name="category_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Books__user_id__3B75D760">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Books" Type="Self.Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Chapters__book_i__4222D4EF">
-          <End Role="Books" Type="Self.Book" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Chapters" Type="Self.Chapter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Books">
-              <PropertyRef Name="book_id" />
-            </Principal>
-            <Dependent Role="Chapters">
-              <PropertyRef Name="book_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Follows__book_id__5535A963">
-          <End Role="Books" Type="Self.Book" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Follows" Type="Self.Follow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Books">
-              <PropertyRef Name="book_id" />
-            </Principal>
-            <Dependent Role="Follows">
-              <PropertyRef Name="book_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Reviews__book_id__5070F446">
-          <End Role="Books" Type="Self.Book" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Books">
-              <PropertyRef Name="book_id" />
-            </Principal>
-            <Dependent Role="Reviews">
-              <PropertyRef Name="book_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -626,7 +598,6 @@
         </Association>
         <EntityContainer Name="WebNovelEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BookCategories" EntityType="Self.BookCategory" />
-          <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Chapters" EntityType="Self.Chapter" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
@@ -635,29 +606,9 @@
           <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="user_permissions" EntityType="Self.user_permissions" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__BookCateg__book___46E78A0C" Association="Self.FK__BookCateg__book___46E78A0C">
-            <End Role="Books" EntitySet="Books" />
-            <End Role="BookCategory" EntitySet="BookCategories" />
-          </AssociationSet>
           <AssociationSet Name="FK__BookCateg__categ__47DBAE45" Association="Self.FK__BookCateg__categ__47DBAE45">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="BookCategory" EntitySet="BookCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Books__user_id__3B75D760" Association="Self.FK__Books__user_id__3B75D760">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Chapters__book_i__4222D4EF" Association="Self.FK__Chapters__book_i__4222D4EF">
-            <End Role="Books" EntitySet="Books" />
-            <End Role="Chapters" EntitySet="Chapters" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Follows__book_id__5535A963" Association="Self.FK__Follows__book_id__5535A963">
-            <End Role="Books" EntitySet="Books" />
-            <End Role="Follows" EntitySet="Follows" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Reviews__book_id__5070F446" Association="Self.FK__Reviews__book_id__5070F446">
-            <End Role="Books" EntitySet="Books" />
-            <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
           <AssociationSet Name="FK__Comments__chapte__4BAC3F29" Association="Self.FK__Comments__chapte__4BAC3F29">
             <End Role="Chapters" EntitySet="Chapters" />
@@ -683,7 +634,173 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="user_permissions" EntitySet="user_permissions" />
           </AssociationSet>
+          <EntitySet Name="Books" EntityType="WebNovelModel.Book" />
+          <AssociationSet Name="FK__BookCateg__book___46E78A0C" Association="WebNovelModel.FK__BookCateg__book___46E78A0C">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="BookCategory" EntitySet="BookCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Books__user_id__3B75D760" Association="WebNovelModel.FK__Books__user_id__3B75D760">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chapters__book_i__4222D4EF" Association="WebNovelModel.FK__Chapters__book_i__4222D4EF">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Chapter" EntitySet="Chapters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Follows__book_id__5535A963" Association="WebNovelModel.FK__Follows__book_id__5535A963">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Follow" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__book_id__5070F446" Association="WebNovelModel.FK__Reviews__book_id__5070F446">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <EntitySet Name="BlackBooks" EntityType="WebNovelModel.BlackBook" />
+          <EntitySet Name="BlackUsers" EntityType="WebNovelModel.BlackUser" />
+          <AssociationSet Name="FK__BlackBook__bookI__778AC167" Association="WebNovelModel.FK__BlackBook__bookI__778AC167">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="BlackBook" EntitySet="BlackBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BlackUser__userI__73BA3083" Association="WebNovelModel.FK__BlackUser__userI__73BA3083">
+            <End Role="User" EntitySet="Users" />
+            <End Role="BlackUser" EntitySet="BlackUsers" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="book_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="book_title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="book_author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="book_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="book_poster" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="book_created_at" Type="DateTime" Precision="3" />
+          <Property Name="book_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BookCategories" Relationship="WebNovelModel.FK__BookCateg__book___46E78A0C" FromRole="Book" ToRole="BookCategory" />
+          <NavigationProperty Name="User" Relationship="WebNovelModel.FK__Books__user_id__3B75D760" FromRole="Book" ToRole="User" />
+          <NavigationProperty Name="Chapters" Relationship="WebNovelModel.FK__Chapters__book_i__4222D4EF" FromRole="Book" ToRole="Chapter" />
+          <NavigationProperty Name="Follows" Relationship="WebNovelModel.FK__Follows__book_id__5535A963" FromRole="Book" ToRole="Follow" />
+          <NavigationProperty Name="Reviews" Relationship="WebNovelModel.FK__Reviews__book_id__5070F446" FromRole="Book" ToRole="Review" />
+          <NavigationProperty Name="BlackBooks" Relationship="WebNovelModel.FK__BlackBook__bookI__778AC167" FromRole="Book" ToRole="BlackBook" />
+        </EntityType>
+        <Association Name="FK__BookCateg__book___46E78A0C">
+          <End Type="WebNovelModel.Book" Role="Book" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebNovelModel.BookCategory" Role="BookCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="BookCategory">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Books__user_id__3B75D760">
+          <End Type="WebNovelModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="WebNovelModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chapters__book_i__4222D4EF">
+          <End Type="WebNovelModel.Book" Role="Book" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebNovelModel.Chapter" Role="Chapter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="Chapter">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Follows__book_id__5535A963">
+          <End Type="WebNovelModel.Book" Role="Book" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebNovelModel.Follow" Role="Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__book_id__5070F446">
+          <End Type="WebNovelModel.Book" Role="Book" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebNovelModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BlackBook">
+          <Key>
+            <PropertyRef Name="blackId" />
+          </Key>
+          <Property Name="blackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bookId" Type="Int32" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Book" Relationship="WebNovelModel.FK__BlackBook__bookI__778AC167" FromRole="BlackBook" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="BlackUser">
+          <Key>
+            <PropertyRef Name="blackId" />
+          </Key>
+          <Property Name="blackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="WebNovelModel.FK__BlackUser__userI__73BA3083" FromRole="BlackUser" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__BlackBook__bookI__778AC167">
+          <End Type="WebNovelModel.Book" Role="Book" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebNovelModel.BlackBook" Role="BlackBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="book_id" />
+            </Principal>
+            <Dependent Role="BlackBook">
+              <PropertyRef Name="bookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BlackUser__userI__73BA3083">
+          <End Type="WebNovelModel.User" Role="User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebNovelModel.BlackUser" Role="BlackUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="BlackUser">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -697,19 +814,6 @@
                 <ScalarProperty Name="book_id" ColumnName="book_id" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="category_note" ColumnName="category_note" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="WebNovelModel.Book">
-              <MappingFragment StoreEntitySet="Books">
-                <ScalarProperty Name="book_id" ColumnName="book_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="book_title" ColumnName="book_title" />
-                <ScalarProperty Name="book_author" ColumnName="book_author" />
-                <ScalarProperty Name="book_description" ColumnName="book_description" />
-                <ScalarProperty Name="book_poster" ColumnName="book_poster" />
-                <ScalarProperty Name="book_created_at" ColumnName="book_created_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -796,6 +900,40 @@
                 <ScalarProperty Name="user_avatar" ColumnName="user_avatar" />
                 <ScalarProperty Name="user_background" ColumnName="user_background" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="WebNovelModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="book_status" ColumnName="book_status" />
+                <ScalarProperty Name="book_created_at" ColumnName="book_created_at" />
+                <ScalarProperty Name="book_poster" ColumnName="book_poster" />
+                <ScalarProperty Name="book_description" ColumnName="book_description" />
+                <ScalarProperty Name="book_author" ColumnName="book_author" />
+                <ScalarProperty Name="book_title" ColumnName="book_title" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlackBooks">
+            <EntityTypeMapping TypeName="WebNovelModel.BlackBook">
+              <MappingFragment StoreEntitySet="BlackBook">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="bookId" ColumnName="bookId" />
+                <ScalarProperty Name="blackId" ColumnName="blackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlackUsers">
+            <EntityTypeMapping TypeName="WebNovelModel.BlackUser">
+              <MappingFragment StoreEntitySet="BlackUser">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="blackId" ColumnName="blackId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

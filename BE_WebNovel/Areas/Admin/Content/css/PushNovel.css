@@ -1,0 +1,69 @@
+﻿:root {
+    --primaty-color: #00dc82;
+    --text-bg: #fff;
+    --text-color: #000;
+}
+
+label,
+.cursorPointer {
+    cursor: pointer;
+}
+
+#Header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: -100%;
+    transition: all ease-out .3s;
+    z-index: 999;
+}
+
+#Main .SideBar .nav {
+}
+
+#Main .SideBar .nav-link {
+    color: #000;
+    border: solid 1px transparent;
+    transition: all ease 0.3s;
+}
+
+    #Main .SideBar .nav-link:hover,
+    #Main .SideBar .nav-link.active {
+        color: var(--primaty-color);
+        border: solid 1px var(--primaty-color);
+        padding-left: 20px;
+    }
+
+    #Main .SideBar .nav-link.active {
+        font-weight: 500;
+    }
+
+#Main .User .Background-User {
+    padding-bottom: 70%;
+}
+
+#Main .User .Information_Action .nav-link:hover {
+    background-color: var(--primaty-color);
+}
+
+#Main .User {
+    zoom: 0.9;
+}
+
+@media (min-width: 400px) {
+    #Main .User {
+        zoom: 1;
+    }
+}
+
+@media (min-width: 576px) {
+    #Main .User .Background-User {
+        padding-bottom: 33.33%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    #Main .User {
+        zoom: 0.9;
+    }
+}
