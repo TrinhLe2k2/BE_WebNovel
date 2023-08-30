@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BE_WebNovel.Models.BlackBook>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.created_at)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.book_title)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.created_at)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.book_title)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.blackId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.blackId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.blackId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

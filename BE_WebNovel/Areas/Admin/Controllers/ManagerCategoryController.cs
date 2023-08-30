@@ -31,7 +31,7 @@ namespace BE_WebNovel.Areas.Admin.Controllers
             {
                 category_id = category.category_id,
                 category_name = category.category_name,
-                category_created_at = category.category_created_at.Value.ToString("yyyy-MM-dd") // Định dạng ngày tháng theo mong muốn
+                category_created_at = category.category_created_at.Value.ToString("dd-MM-yyyy") // Định dạng ngày tháng theo mong muốn
             });;
 
             return Json(formattedCategoriesList, JsonRequestBehavior.AllowGet);

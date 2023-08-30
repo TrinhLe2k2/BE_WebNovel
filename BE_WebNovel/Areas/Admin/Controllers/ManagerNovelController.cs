@@ -24,10 +24,19 @@ namespace BE_WebNovel.Areas.Admin.Controllers
             var bookList = db.Books.ToList();
             int pageSize = 10;
             
+            ViewBag.pageSize = pageSize;
+            ViewBag.CurrentPage = page;
+            ViewBag.CountCreatedNovel = bookList.Count();
+
+            ViewBag.isError = TempData["isError"];
+            ViewBag.Color = TempData["Color"];
+            ViewBag.ToastContent = TempData["ToastContent"];
+
             int pageNumber = (page ?? 1);
             return View(bookList.ToPagedList(pageNumber, pageSize));
         }
 
+        [AdminAuthorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -50,13 +59,13 @@ namespace BE_WebNovel.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "book_id,user_id,book_title,book_author,book_description,book_poster,book_created_at,book_status")] Book book, HttpPostedFileBase Poster, string originPoster, DateTime time)
+        public ActionResult Edit([Bind(Include = "book_id,user_id,book_title,book_author,book_description,book_poster,book_created_at,book_status")] Book book, HttpPostedFileBase Poster, string originPoster, DateTime? time)
         {
             #region Đặt lại giá trị ban đầu
             book.book_created_at = time;
             #endregion
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
                 #region Xử lý ảnh
                 if (Poster != null && Poster.ContentLength > 0)
@@ -77,7 +86,7 @@ namespace BE_WebNovel.Areas.Admin.Controllers
                 }
                 else
                 {
-                    book.book_poster = originPoster;
+                    book.book_poster = null;
                 }
                 #endregion
 
@@ -88,6 +97,72 @@ namespace BE_WebNovel.Areas.Admin.Controllers
             }
             ViewBag.user_id = new SelectList(db.Users, "user_id", "username", book.user_id);
             return View(book);
+        }
+    
+        
+        [AdminAuthorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int? id)
+        {
+            var currentBook = db.Books.Find(id);
+            if (currentBook.book_poster != null)
+            {
+                var relativeImagePath = "~/Content/assets/img/Poster/" + currentBook.book_poster;
+                var serverPath = Server.MapPath(relativeImagePath);
+                System.IO.File.Delete(serverPath);
+            }
+
+            Book book = db.Books.Find(id);
+            db.Books.Remove(book);
+            db.SaveChanges();
+            Toast(false, "Đã xóa thành công");
+            return RedirectToAction("Index");
+        }
+
+        
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBackBook([Bind(Include = "blackId,bookId,note,created_at")] BlackBook blackBook)
+        {
+            blackBook.created_at = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                db.BlackBooks.Add(blackBook);
+                db.SaveChanges();
+                Toast(true, "Truyện đã được khóa");
+                return RedirectToAction("Index");
+            }
+            ViewBag.bookId = new SelectList(db.Books, "book_id", "book_title", blackBook.bookId);
+            return View(blackBook);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveBackBook(int bookID)
+        {
+            BlackBook blackBook = db.BlackBooks.SingleOrDefault(b=>b.bookId == bookID);
+            db.BlackBooks.Remove(blackBook);
+            db.SaveChanges();
+            Toast(false, "Truyện đã được duyệt thành công");
+            return RedirectToAction("Index");
+        }
+        
+        public void Toast(bool isError, string contentToast)
+        {
+            if(isError)
+            {
+                TempData["isError"] = true;
+                TempData["Color"] = "#dc3545";
+                TempData["ToastContent"] = contentToast;
+            }
+            else
+            {
+                TempData["isError"] = false;
+                TempData["Color"] = "#00dc82";
+                TempData["ToastContent"] = contentToast;
+            }
         }
     }
 }

@@ -2535,6 +2535,7 @@
     <Compile Include="Areas\Admin\Controllers\ManagerCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerNovelController.cs" />
     <Compile Include="Areas\Admin\Controllers\PushNovelController.cs" />
+    <Compile Include="ControllerEntities\BlackBooksController.cs" />
     <Compile Include="ControllerEntities\BooksController.cs" />
     <Compile Include="ControllerEntities\CategoriesController.cs" />
     <Compile Include="ControllerEntities\UsersController.cs" />
@@ -2700,6 +2701,11 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\BlackBooks\Create.cshtml" />
+    <Content Include="Views\BlackBooks\Delete.cshtml" />
+    <Content Include="Views\BlackBooks\Details.cshtml" />
+    <Content Include="Views\BlackBooks\Edit.cshtml" />
+    <Content Include="Views\BlackBooks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
