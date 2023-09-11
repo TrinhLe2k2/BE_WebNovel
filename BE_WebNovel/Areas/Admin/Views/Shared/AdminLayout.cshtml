@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mario Baby - @ViewBag.Title</title>
+    <title>@ViewBag.currtentUser - @ViewBag.Title</title>
 
     <!-- css -->
     <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
@@ -224,19 +224,16 @@
                             <a href="~/Admin/HomeAdmin/Index" class="nav-link"><i class="fa-solid fa-user"></i> Cá nhân</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./TheoDoi.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Theo dõi</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="~/Admin/PushNovel/Index" class="nav-link"><i class="fa-solid fa-upload"></i> Đăng truyện</a>
                         </li>
                         <li class="nav-item">
                             <a href="~/Admin/CreatedNovel/Index" class="nav-link"><i class="fa-solid fa-book-journal-whills"></i> Truyện đã đăng</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./QuanLyNguoiDung.html" class="nav-link"><i class="fa-solid fa-people-roof"></i> Quản lý người dùng</a>
+                            <a href="~/Admin/ManagerNovel/Index" class="nav-link"><i class="fa-solid fa-swatchbook"></i> Quản lý truyện</a>
                         </li>
                         <li class="nav-item">
-                            <a href="~/Admin/ManagerNovel/Index" class="nav-link"><i class="fa-solid fa-swatchbook"></i> Quản lý truyện</a>
+                            <a href="~/Admin/ManagerUser/Index" class="nav-link"><i class="fa-solid fa-people-roof"></i> Quản lý người dùng</a>
                         </li>
                         <li class="nav-item">
                             <a href="~/Admin/ManagerCategory/Index" class="nav-link"><i class="fa-solid fa-earth-americas"></i> Quản lý thể loại</a>
@@ -300,105 +297,6 @@
     </section>
 
     <section id="Modal">
-        <section>
-            <!-- Login/Register -->
-            <div class="modal fade" id="AccountModal" aria-hidden="true" aria-labelledby="AccountModalLabel"
-                 tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="AccountModalLabel">Đăng Nhập</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="#" class="" method="post">
-                                <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Email">Email</label>
-                                    <div class="col-md-12">
-                                        <input class="form-control" id="Email" name="Email" type="email" value="">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Password">Password</label>
-                                    <div class="col-md-12">
-                                        <input class="form-control" id="Password" name="Password" type="password" value="">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <div class="col-md-offset-2 col-md-12">
-                                        <div class="checkbox">
-                                            <input id="RememberMe" name="RememberMe" type="checkbox" value="true">
-                                            <label for="RememberMe">Remember me?</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <div class="col-md-offset-2 col-md-12">
-                                        <input type="submit" value="Đăng Nhập" class="btn btn-success">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <span>Bạn chưa có tài khoản?<a href="" data-bs-target="#AccountModal2" data-bs-toggle="modal"> Đăng ký tại đây</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="AccountModal2" aria-hidden="true"
-                 aria-labelledby="AccountModalLabel2" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="AccountModalLabel2">Đăng ký</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="#" class="" method="post">
-                                <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="UserName">Tên đăng nhập</label>
-                                    <div class="col-md-12">
-                                        <input class="form-control" id="UserName" name="UserName" type="text" value="">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Email">Email</label>
-                                    <div class="col-md-12">
-                                        <input class="form-control" id="Email" name="Email" type="email" value="">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Password">Mật khẩu</label>
-                                    <div class="col-md-12">
-                                        <input class="form-control" id="Password" name="Password" type="password" value="">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="col-md-12 my-1 control-label" for="Re-Password">Nhập lại mật khẩu</label>
-                                    <div class="col-md-12">
-                                        <input class="form-control" id="Re-Password" name="Re-Password" type="password" value="">
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <div class="col-md-offset-2 col-md-12">
-                                        <input type="submit" value="Đăng ký" class="btn btn-success">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" data-bs-target="#AccountModal" data-bs-toggle="modal">Quay lại trang đăng nhập</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section>
             <!-- Mess success -->

@@ -33,7 +33,7 @@
                 @Html.DisplayNameFor(model => model.book_created_at)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.book_status)
+                @Html.DisplayNameFor(model => model.StatusBook.statusName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User.username)
@@ -59,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.book_created_at)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.book_status)
+                @Html.DisplayFor(modelItem => item.StatusBook.statusName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.username)

@@ -11,7 +11,8 @@ namespace BE_WebNovel.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Chapter
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,12 +25,12 @@ namespace BE_WebNovel.Models
         public Nullable<int> book_id { get; set; }
         public Nullable<int> chapter_number { get; set; }
         public string chapter_title { get; set; }
+        [AllowHtml]
         public string chapter_content { get; set; }
         public Nullable<int> chapter_view { get; set; }
         public Nullable<System.DateTime> chapter_created_at { get; set; }
-    
+        public virtual Book Book { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual Book Book { get; set; }
     }
 }

@@ -14,15 +14,11 @@ namespace BE_WebNovel.ControllerEntities
     {
         private WebNovelEntities db = new WebNovelEntities();
 
-        public ActionResult Index2()
-        {
-            return View();
-        }
-
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var users = db.Users.Include(u => u.permission);
+            return View(users.ToList());
         }
 
         // GET: Users/Details/5
@@ -43,6 +39,7 @@ namespace BE_WebNovel.ControllerEntities
         // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.permission_id = new SelectList(db.permissions, "permission_id", "function_name");
             return View();
         }
 
@@ -51,7 +48,7 @@ namespace BE_WebNovel.ControllerEntities
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "user_id,username,password,email,user_avatar,user_background,created_at")] User user)
+        public ActionResult Create([Bind(Include = "user_id,permission_id,username,password,email,user_avatar,user_background,created_at")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +57,7 @@ namespace BE_WebNovel.ControllerEntities
                 return RedirectToAction("Index");
             }
 
+            ViewBag.permission_id = new SelectList(db.permissions, "permission_id", "function_name", user.permission_id);
             return View(user);
         }
 
@@ -75,6 +73,7 @@ namespace BE_WebNovel.ControllerEntities
             {
                 return HttpNotFound();
             }
+            ViewBag.permission_id = new SelectList(db.permissions, "permission_id", "function_name", user.permission_id);
             return View(user);
         }
 
@@ -83,7 +82,7 @@ namespace BE_WebNovel.ControllerEntities
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "user_id,username,password,email,user_avatar,user_background,created_at")] User user)
+        public ActionResult Edit([Bind(Include = "user_id,permission_id,username,password,email,user_avatar,user_background,created_at")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +90,7 @@ namespace BE_WebNovel.ControllerEntities
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.permission_id = new SelectList(db.permissions, "permission_id", "function_name", user.permission_id);
             return View(user);
         }
 

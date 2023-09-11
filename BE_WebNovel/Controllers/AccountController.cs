@@ -25,7 +25,7 @@ namespace BE_WebNovel.Controllers
                     HttpCookie cookie = new HttpCookie("LoginCookie");
                     cookie.Values["Email"] = InputEmail;
                     cookie.Values["Password"] = inputPassword;
-                    cookie.Expires = DateTime.Now.AddMinutes(60);
+                    cookie.Expires = DateTime.Now.AddMinutes(120);
                     Response.Cookies.Add(cookie);
                 }
 
@@ -39,9 +39,10 @@ namespace BE_WebNovel.Controllers
          
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "user_id,username,password,email,user_avatar,user_background,created_at")] User user, string rePass)
+        public ActionResult Register([Bind(Include = "user_id,permission_id,username,password,email,user_avatar,user_background,created_at")] User user, string rePass)
         {
             // Đặt giá trị mặc định
+            user.permission_id = 1;
             user.user_avatar = null;
             user.user_background = null;
             user.created_at = DateTime.Now;

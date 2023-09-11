@@ -17,12 +17,14 @@ namespace BE_WebNovel.Areas.Admin.Controllers
         public ActionResult Index()
         {
             ViewBag.ListCategories = db.Categories.ToList();
+            ViewBag.ListStatusBook = db.StatusBooks.ToList();
+            ViewBag.CurrtentUser = (User)HttpContext.Session["user"];
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "book_id,user_id,book_title,book_author,book_description,book_poster,book_created_at,book_status")] Book book, int[] CategoriesList, HttpPostedFileBase Poster)
+        public ActionResult Index([Bind(Include = "book_id,user_id,status_id,book_title,book_author,book_description,book_poster,book_created_at")] Book book, int[] CategoriesList, HttpPostedFileBase Poster)
         {
             var CurrentUser = (BE_WebNovel.Models.User)HttpContext.Session["user"];
             book.user_id = CurrentUser.user_id;
@@ -71,6 +73,7 @@ namespace BE_WebNovel.Areas.Admin.Controllers
             }
 
             ViewBag.ListCategories = db.Categories.ToList();
+            ViewBag.ListStatusBook = db.StatusBooks.ToList();
             return View();
         }
     }

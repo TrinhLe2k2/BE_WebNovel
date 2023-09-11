@@ -1,0 +1,74 @@
+﻿@model BE_WebNovel.Models.Chapter
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Chapter</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_title)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_title)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_content)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_content)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_view)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_view)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_created_at)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_created_at)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Book.book_title)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Book.book_title)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.chapter_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

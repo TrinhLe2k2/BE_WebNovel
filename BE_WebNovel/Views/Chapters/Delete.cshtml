@@ -1,0 +1,80 @@
+﻿@model BE_WebNovel.Models.Chapter
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Chapter</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_number)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_number)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_title)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_title)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_content)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_content)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_view)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_view)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.chapter_created_at)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.chapter_created_at)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Book.book_title)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Book.book_title)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

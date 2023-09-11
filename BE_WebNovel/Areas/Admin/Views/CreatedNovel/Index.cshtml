@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = "Truyện đã đăng";
+    ViewBag.currtentUser = ViewBag.CurrtentUser.username;
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -50,8 +51,8 @@
                             <tr>
                                 <td scope="row">@stt</td>
                                 <td><a href="./ThongTinTruyen.html">@item.book_title</a></td>
-                                <td><a href="./QuanLyChapter.html"><i class="fa-solid fa-plus"></i> @item.Chapters.Count()</a></td>
-                                <td>@item.book_status</td>
+                                <td><a href="~/Admin/ManagerChapter/Index?bookID=@item.book_id">@item.Chapters.Count() <i class="fa-solid fa-plus"></i></a></td>
+                                <td>@item.StatusBook.statusName</td>
                                 <td>
                                     <a href="~/Admin/ManagerNovel/Edit/@item.book_id">Sửa</a>
                                 </td>

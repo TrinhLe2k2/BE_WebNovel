@@ -15,6 +15,8 @@ namespace BE_WebNovel.Areas.Admin.Controllers
         [AdminAuthorize]
         public ActionResult Index()
         {
+            ViewBag.CurrtentUser = (User)HttpContext.Session["user"];
+
             ViewBag.isError = TempData["isError"];
             ViewBag.Color = TempData["Color"];
             ViewBag.ToastContent = TempData["ToastContent"];

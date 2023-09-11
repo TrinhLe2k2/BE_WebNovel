@@ -17,6 +17,8 @@ namespace BE_WebNovel.Areas.Admin.Controllers
         [AdminAuthorize]
         public ActionResult Index()
         {
+            ViewBag.CurrtentUser = (User)HttpContext.Session["user"];
+
             var CurrentUser = (BE_WebNovel.Models.User)HttpContext.Session["user"];
             var userDB = db.Users.FirstOrDefault(f => f.user_id == CurrentUser.user_id);
             return View(userDB);
@@ -25,7 +27,7 @@ namespace BE_WebNovel.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "user_id,username,password,email,user_avatar,user_background,created_at")] User user, HttpPostedFileBase avatar, HttpPostedFileBase background, string NewPassword, string RePassword)
+        public ActionResult Index([Bind(Include = "user_id,permission_id,username,password,email,user_avatar,user_background,created_at")] User user, HttpPostedFileBase avatar, HttpPostedFileBase background, string NewPassword, string RePassword)
         {
             var CurrentUser = (BE_WebNovel.Models.User)HttpContext.Session["user"];
 

@@ -19,7 +19,7 @@ namespace BE_WebNovel.Models
         public Nullable<int> category_id { get; set; }
         public string category_note { get; set; }
     
-        public virtual Category Category { get; set; }
         public virtual Book Book { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

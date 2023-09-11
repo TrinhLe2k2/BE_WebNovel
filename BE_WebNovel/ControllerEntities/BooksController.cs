@@ -17,7 +17,7 @@ namespace BE_WebNovel.ControllerEntities
         // GET: Books
         public ActionResult Index()
         {
-            var books = db.Books.Include(b => b.User);
+            var books = db.Books.Include(b => b.StatusBook).Include(b => b.User);
             return View(books.ToList());
         }
 
@@ -39,6 +39,7 @@ namespace BE_WebNovel.ControllerEntities
         // GET: Books/Create
         public ActionResult Create()
         {
+            ViewBag.status_id = new SelectList(db.StatusBooks, "statusId", "statusName");
             ViewBag.user_id = new SelectList(db.Users, "user_id", "username");
             return View();
         }
@@ -48,7 +49,7 @@ namespace BE_WebNovel.ControllerEntities
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "book_id,user_id,book_title,book_author,book_description,book_poster,book_created_at,book_status")] Book book)
+        public ActionResult Create([Bind(Include = "book_id,user_id,status_id,book_title,book_author,book_description,book_poster,book_created_at")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +58,7 @@ namespace BE_WebNovel.ControllerEntities
                 return RedirectToAction("Index");
             }
 
+            ViewBag.status_id = new SelectList(db.StatusBooks, "statusId", "statusName", book.status_id);
             ViewBag.user_id = new SelectList(db.Users, "user_id", "username", book.user_id);
             return View(book);
         }
@@ -73,6 +75,7 @@ namespace BE_WebNovel.ControllerEntities
             {
                 return HttpNotFound();
             }
+            ViewBag.status_id = new SelectList(db.StatusBooks, "statusId", "statusName", book.status_id);
             ViewBag.user_id = new SelectList(db.Users, "user_id", "username", book.user_id);
             return View(book);
         }
@@ -82,7 +85,7 @@ namespace BE_WebNovel.ControllerEntities
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "book_id,user_id,book_title,book_author,book_description,book_poster,book_created_at,book_status")] Book book)
+        public ActionResult Edit([Bind(Include = "book_id,user_id,status_id,book_title,book_author,book_description,book_poster,book_created_at")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -90,6 +93,7 @@ namespace BE_WebNovel.ControllerEntities
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.status_id = new SelectList(db.StatusBooks, "statusId", "statusName", book.status_id);
             ViewBag.user_id = new SelectList(db.Users, "user_id", "username", book.user_id);
             return View(book);
         }

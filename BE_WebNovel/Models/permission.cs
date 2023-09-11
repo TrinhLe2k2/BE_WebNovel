@@ -17,13 +17,13 @@ namespace BE_WebNovel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public permission()
         {
-            this.user_permissions = new HashSet<user_permissions>();
+            this.Users = new HashSet<User>();
         }
     
         public int permission_id { get; set; }
         public string function_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_permissions> user_permissions { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

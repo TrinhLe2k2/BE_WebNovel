@@ -16,7 +16,7 @@ namespace BE_WebNovel.Areas.Admin.Controllers
         public ActionResult Index(int? page)
         {
             var currentUser = (User)HttpContext.Session["user"];
-
+            ViewBag.CurrtentUser = (User)HttpContext.Session["user"];
             if(page == null) page = 1;
             // truy van list
             var bookList = db.Books.Where(b=>b.user_id == currentUser.user_id).ToList();
@@ -28,6 +28,10 @@ namespace BE_WebNovel.Areas.Admin.Controllers
 
             ViewBag.CountCreatedNovel = bookList.Count();
 
+            // Toast
+            ViewBag.isError = TempData["isError"];
+            ViewBag.Color = TempData["Color"];
+            ViewBag.ToastContent = TempData["ToastContent"];
             return View(bookList.ToPagedList(pageNumber, pageSize));
         }
     }

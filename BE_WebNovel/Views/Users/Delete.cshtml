@@ -65,6 +65,14 @@
                 @Html.DisplayFor(model => model.created_at)
             </dd>
     
+            <dt>
+                @Html.DisplayNameFor(model => model.permission.function_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.permission.function_name)
+            </dd>
+    
         </dl>
     
         @using (Html.BeginForm()) {

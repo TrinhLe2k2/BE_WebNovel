@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BE_WebNovel.Models.Chapter>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.chapter_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.chapter_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.chapter_content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.chapter_view)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.chapter_created_at)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.book_title)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.chapter_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chapter_title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chapter_content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chapter_view)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chapter_created_at)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.book_title)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.chapter_id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.chapter_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.chapter_id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

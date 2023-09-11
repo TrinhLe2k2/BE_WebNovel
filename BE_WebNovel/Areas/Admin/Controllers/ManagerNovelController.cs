@@ -24,9 +24,10 @@ namespace BE_WebNovel.Areas.Admin.Controllers
             var bookList = db.Books.ToList();
             int pageSize = 10;
             
+            ViewBag.CurrtentUser = (User)HttpContext.Session["user"];
             ViewBag.pageSize = pageSize;
             ViewBag.CurrentPage = page;
-            ViewBag.CountCreatedNovel = bookList.Count();
+            ViewBag.CountNovel = bookList.Count();
 
             ViewBag.isError = TempData["isError"];
             ViewBag.Color = TempData["Color"];
@@ -49,8 +50,18 @@ namespace BE_WebNovel.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.CurrtentUser = (User)HttpContext.Session["user"];
             ViewBag.ListCategories = db.Categories.ToList();
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "username", book.user_id);
+            ViewBag.ListStatusBook = db.StatusBooks.ToList();
+
+            // Toast
+            ViewBag.isError = TempData["isError"];
+            ViewBag.Color = TempData["Color"];
+            ViewBag.ToastContent = TempData["ToastContent"];
+
+            // Error Edit form
+            ViewBag.ErrorBookTitle = TempData["ErrorBookTitle"];
+
             return View(book);
         }
 
@@ -59,13 +70,13 @@ namespace BE_WebNovel.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "book_id,user_id,book_title,book_author,book_description,book_poster,book_created_at,book_status")] Book book, HttpPostedFileBase Poster, string originPoster, DateTime? time)
+        public ActionResult Edit([Bind(Include = "book_id,user_id,status_id,book_title,book_author,book_description,book_poster,book_created_at")] Book book, HttpPostedFileBase Poster, string originPoster, DateTime? time)
         {
             #region Đặt lại giá trị ban đầu
             book.book_created_at = time;
             #endregion
 
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 #region Xử lý ảnh
                 if (Poster != null && Poster.ContentLength > 0)
@@ -86,20 +97,23 @@ namespace BE_WebNovel.Areas.Admin.Controllers
                 }
                 else
                 {
-                    book.book_poster = null;
+                    book.book_poster = originPoster;
                 }
                 #endregion
 
-
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
+                Toast(false, "Chỉnh sửa thành công");
                 return Redirect("~/Admin/CreatedNovel/Index");
             }
-            ViewBag.user_id = new SelectList(db.Users, "user_id", "username", book.user_id);
-            return View(book);
+            if(book.book_title == null)
+            {
+                TempData["ErrorBookTitle"] = "Vui lòng nhập vào trường này";
+            }
+            Toast(true, "Chỉnh sửa thất bại");
+            return Redirect("~/Admin/ManagerNovel/Edit/"+book.book_id);
         }
     
-        
         [AdminAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]

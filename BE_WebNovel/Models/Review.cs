@@ -21,7 +21,7 @@ namespace BE_WebNovel.Models
         public string review_text { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
     
-        public virtual User User { get; set; }
         public virtual Book Book { get; set; }
+        public virtual User User { get; set; }
     }
 }

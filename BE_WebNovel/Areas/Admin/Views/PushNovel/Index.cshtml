@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Đăng truyện";
+    ViewBag.currtentUser = ViewBag.CurrtentUser.username;
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -34,33 +35,20 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="NovelStatus" class="col-xl-2 col-lg-3 col-form-label">Trạng thái: </label>
+                <label for="" class="col-xl-2 col-lg-3 col-form-label">Trạng thái: </label>
                 <div class="col-12 col-lg-9 col-xl-10">
                     <div class="row">
-                        <div class="col-sm-6 col-xl-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="radio1" checked value="Chưa hoàn thành" name="book_status">
-                                <label class="form-check-label" for="radio1">
-                                    Chưa hoàn thành
-                                </label>
+                        @foreach (var item in ViewBag.ListStatusBook)
+                        {
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="radio_@item.statusId" checked value="@item.statusId" name="status_id">
+                                    <label class="form-check-label" for="radio_@item.statusId">
+                                        @item.statusName
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="radio2" value="Hoàn thành" name="book_status">
-                                <label class="form-check-label" for="radio2">
-                                    Hoàn thành
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" id="radio3" value="Ngừng viết" name="book_status">
-                                <label class="form-check-label" for="radio3">
-                                    Ngừng viết
-                                </label>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

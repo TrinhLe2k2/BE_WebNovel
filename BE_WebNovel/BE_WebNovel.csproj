@@ -105,7 +105,10 @@
     <Content Include="Areas\Admin\Content\css\CreatedNovelIndex.css" />
     <Content Include="Areas\Admin\Content\css\HomeAdminIndex.css" />
     <Content Include="Areas\Admin\Content\css\ManagerCategoryIndex.css" />
+    <Content Include="Areas\Admin\Content\css\ManagerChapterEdit.css" />
+    <Content Include="Areas\Admin\Content\css\ManagerChapterIndex.css" />
     <Content Include="Areas\Admin\Content\css\ManagerNovelIndex.css" />
+    <Content Include="Areas\Admin\Content\css\ManagerUserIndex.css" />
     <Content Include="Areas\Admin\Content\css\pagination.css" />
     <Content Include="Areas\Admin\Content\css\PushNovel.css" />
     <Content Include="Content\assets\ckeditor\adapters\jquery.js" />
@@ -2533,11 +2536,12 @@
     <Compile Include="Areas\Admin\Controllers\CreatedNovelController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManagerChapterController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerNovelController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManagerUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\PushNovelController.cs" />
-    <Compile Include="ControllerEntities\BlackBooksController.cs" />
     <Compile Include="ControllerEntities\BooksController.cs" />
-    <Compile Include="ControllerEntities\CategoriesController.cs" />
+    <Compile Include="ControllerEntities\ChaptersController.cs" />
     <Compile Include="ControllerEntities\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2574,10 +2578,10 @@
     <Compile Include="Models\Review.cs">
       <DependentUpon>WebNovelEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
+    <Compile Include="Models\StatusBook.cs">
       <DependentUpon>WebNovelEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\user_permissions.cs">
+    <Compile Include="Models\User.cs">
       <DependentUpon>WebNovelEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WebNovelEntity.Context.cs">
@@ -2682,6 +2686,9 @@
     <Content Include="Areas\Admin\Views\PushNovel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManagerCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ManagerNovel\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerUser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerChapter\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManagerChapter\Edit.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -2706,6 +2713,16 @@
     <Content Include="Views\BlackBooks\Details.cshtml" />
     <Content Include="Views\BlackBooks\Edit.cshtml" />
     <Content Include="Views\BlackBooks\Index.cshtml" />
+    <Content Include="Views\BlackUsers\Create.cshtml" />
+    <Content Include="Views\BlackUsers\Delete.cshtml" />
+    <Content Include="Views\BlackUsers\Details.cshtml" />
+    <Content Include="Views\BlackUsers\Edit.cshtml" />
+    <Content Include="Views\BlackUsers\Index.cshtml" />
+    <Content Include="Views\Chapters\Create.cshtml" />
+    <Content Include="Views\Chapters\Delete.cshtml" />
+    <Content Include="Views\Chapters\Details.cshtml" />
+    <Content Include="Views\Chapters\Edit.cshtml" />
+    <Content Include="Views\Chapters\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

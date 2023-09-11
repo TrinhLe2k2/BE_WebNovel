@@ -17,15 +17,15 @@ namespace BE_WebNovel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.BlackUsers = new HashSet<BlackUser>();
+            this.Books = new HashSet<Book>();
             this.Comments = new HashSet<Comment>();
             this.Follows = new HashSet<Follow>();
             this.Reviews = new HashSet<Review>();
-            this.user_permissions = new HashSet<user_permissions>();
-            this.Books = new HashSet<Book>();
-            this.BlackUsers = new HashSet<BlackUser>();
         }
     
         public int user_id { get; set; }
+        public Nullable<int> permission_id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string email { get; set; }
@@ -34,16 +34,15 @@ namespace BE_WebNovel.Models
         public Nullable<System.DateTime> created_at { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Follow> Follows { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user_permissions> user_permissions { get; set; }
+        public virtual ICollection<BlackUser> BlackUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Books { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BlackUser> BlackUsers { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Follow> Follows { get; set; }
+        public virtual permission permission { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

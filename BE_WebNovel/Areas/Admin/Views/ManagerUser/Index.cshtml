@@ -1,0 +1,324 @@
+﻿
+@model PagedList.IPagedList<BE_WebNovel.Models.User>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.currtentUser = ViewBag.CurrtentUser.username;
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@section css {
+    <link href="~/Areas/Admin/Content/css/ManagerUserIndex.css" rel="stylesheet" />
+}
+
+<div class="col-12 col-lg-9">
+    <div class="row mb-3">
+        <div class="col-6 ms-auto">
+            <!-- search -->
+            <form class="d-flex align-items-stretch rounded-pill m-2 w-100 custom-form bg-white" style="border: solid 2px #00dc82;">
+                <input type="text" class="w-100 py-1 border-0 ps-3 rounded-pill flex-fill" placeholder="Search" style="outline: none;">
+                <button type="submit" class="px-3 border-0 rounded-pill bg-body">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="d-flex justify-content-between my-3 flex-wrap">
+            <h3 class="mb-3">Quản lý người dùng - @ViewBag.CountUser</h3>
+            <button class="btn btn-primary mb-3" data-bs-target="#RegisterAccountModal" data-bs-toggle="modal" id="RegisterAccount">Thêm người dùng mới</button>
+        </div>
+        <div id="wrapperPages" class="my-3">
+            <div class="data-container">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th class="d-none d-lg-table-cell">Họ Tên</th>
+                                <th>Email</th>
+                                <th class="d-none d-md-table-cell">Ngày tạo</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            @{
+                                int index = 0;
+                                foreach (var item in Model)
+                                {
+                                    index++;
+                                    int stt = (ViewBag.CurrentPage - 1) * ViewBag.pageSize + index;
+                                                        <tr>
+                                                            <td>@stt</td>
+                                                            <td class="d-none d-lg-table-cell"><a href="./TrangCaNhan">@item.username</a></td>
+                                                            <td>@item.email</td>
+                                                            <td class="d-none d-md-table-cell">@item.created_at.Value.ToString("dd-MM-yyyy")</td>
+                                                            <td class="">
+                                                                @if (item.BlackUsers.Count > 0)
+                                                                {
+                                                                    <a href="#" class="text-success fw-bold" data-bs-toggle="modal" data-bs-target="#UserLockOpenModal_@item.user_id">| Mở khóa |</a>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="UserLockOpenModal_@item.user_id" tabindex="-1" aria-labelledby="UserLockOpenModalLabel_@item.user_id" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                            <form action="~/Admin/ManagerUser/RemoveBlackUser?userId=@item.user_id" method="post">
+                                                                                @Html.AntiForgeryToken()
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h1 class="modal-title fs-5" id="UserLockOpenModalLabel_@item.user_id">Xác nhận mở khóa</h1>
+                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        bạn có chắc muốn mở khóa người dùng "@item.username" không?
+                                                                                        <input type="text" hidden value="@item.user_id" name="userID" />
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                                        <input type="submit" class="btn btn-success" value="Mở khóa" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a href="#" class="text-danger fw-bold" data-bs-toggle="modal" data-bs-target="#UserLockModal_@item.user_id">| Khóa |</a>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="UserLockModal_@item.user_id" tabindex="-1" aria-labelledby="UserLockModalLabel_@item.user_id" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                            <form action="~/Admin/ManagerUser/AddBlackUser" method="post">
+                                                                                @Html.AntiForgeryToken()
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h1 class="modal-title fs-5" id="UserLockModalLabel_@item.user_id">Xác nhận khóa</h1>
+                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        bạn có chắc muốn khóa người dùng "@item.username" không?
+                                                                                        <input type="text" hidden value="@item.user_id" name="userId" />
+                                                                                        <div class="form-group my-3">
+                                                                                            <label class="col-md-12 my-1 control-label" for="NoteBlackUser">Ghi chú</label>
+                                                                                            <div class="col-md-12">
+                                                                                                <input class="form-control" id="NoteBlackUser" type="text" name="note">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                                        <input type="submit" class="btn btn-danger" value="Khóa" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="fw-bold" data-bs-toggle="modal" data-bs-target="#permissionForUserModal_@item.user_id">| @item.permission.function_name |</a>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="permissionForUserModal_@item.user_id" tabindex="-1" aria-labelledby="permissionForUserModalLabel_@item.user_id" aria-hidden="true">
+                                                                    <div class="modal-dialog" style="transform: translateY(100%);">
+                                                                        <form action="~/Admin/ManagerUser/permissionForUser?userID=@item.user_id" method="post">
+                                                                            @Html.AntiForgeryToken()
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h1 class="modal-title fs-5" id="permissionForUserModalLabel_@item.user_id">Cấp Quyền</h1>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="form-group d-flex justify-content-around">
+                                                                                        @foreach (var Permission in ViewBag.Permissions)
+                                                                                        {
+                                                                                            <div>
+                                                                                                @if (Permission.permission_id == item.permission_id)
+                                                                                                {
+                                                                                                    <input class="form-check-input" type="radio" checked name="permission" id="@item.user_id-radioPermissionForUser_@Permission.permission_id" value="@Permission.permission_id">
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <input class="form-check-input" type="radio" name="permission" id="@item.user_id-radioPermissionForUser_@Permission.permission_id" value="@Permission.permission_id">
+                                                                                                }
+                                                                                                <label class="form-check-label" style="cursor: pointer;" for="@item.user_id-radioPermissionForUser_@Permission.permission_id">@Permission.function_name</label>
+                                                                                            </div>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                                    <input type="submit" class="btn btn-success" value="Hoàn Thành" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#" class="text-danger fw-bold" data-bs-toggle="modal" data-bs-target="#UserDeleteModal_@item.user_id">| Xóa |</a>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="UserDeleteModal_@item.user_id" tabindex="-1" aria-labelledby="UserDeleteModalLabel_@item.user_id" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <form action="~/Admin/ManagerUser/Delete/@item.user_id" method="post">
+                                                                            @Html.AntiForgeryToken()
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h1 class="modal-title fs-5" id="UserDeleteModalLabel_@item.user_id">Xác nhận xóa</h1>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    bạn có chắc muốn xóa người dùng "@item.username" không?
+                                                                                    <input type="text" hidden value="@item.user_id" name="userId" />
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                                    <input type="submit" class="btn btn-danger" value="Xóa" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                    stt++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="pagination-ForUsers" class="my-5">
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    </div>
+</div>
+
+@section modal {
+    <section>
+        <!--register form -->
+        <div class="modal fade" id="RegisterAccountModal" aria-hidden="true"
+             aria-labelledby="RegisterAccountModalLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="RegisterAccountModalLabel">Thêm người dùng mới</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="~/Admin/ManagerUser/create" class="" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group mb-3">
+                                <label class="col-md-12 my-1 control-label" for="UserName">Họ Tên<span id="RegisterErrorMessage" class="text-danger ms-3 float-end">@ViewBag.ErrorUsername</span></label>
+                                <div class="col-md-12">
+                                    <input class="form-control" id="UserName" type="text" name="username">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="col-md-12 my-1 control-label" for="Email">Email<span id="RegisterErrorMessage" class="text-danger ms-3 float-end">@ViewBag.ErrorEmail</span></label>
+                                <div class="col-md-12">
+                                    <input class="form-control" id="Email" type="email" name="email">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="col-md-12 my-1 control-label" for="Password">Mật khẩu<span id="RegisterErrorMessage" class="text-danger ms-3 float-end RegisterPassErrorMessage">@ViewBag.ErrorPassword</span></label>
+                                <div class="col-md-12">
+                                    <input class="form-control" id="Password" type="password" name="password">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="col-md-12 my-1 control-label" for="Re-Password">Nhập lại mật khẩu<span id="RegisterErrorMessage" class="text-danger ms-3 float-end RegisterRePassErrorMessage">@ViewBag.ErrorRePassword</span></label>
+                                <div class="col-md-12">
+                                    <input class="form-control" id="Re-Password" type="password" name="rePass">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="col-form-label">Quyền: </label>
+                                <div class="col-12">
+                                    <div class="row">
+                                        @foreach (var item in ViewBag.Permissions)
+                                        {
+                                            <div class="col-sm-6 col-xl-4">
+                                                <div class="form-check">
+                                                    @if (item.permission_id == 1)
+                                                    {
+                                                        <input class="form-check-input" type="radio" id="radioPermission_@item.permission_id" checked value="@item.permission_id" name="permission_id">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input class="form-check-input" type="radio" id="radioPermission_@item.permission_id" value="@item.permission_id" name="permission_id">
+                                                    }
+                                                    <label class="form-check-label" for="radioPermission_@item.permission_id" style="cursor: pointer;">
+                                                        @item.function_name
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="Đăng ký" class="btn btn-success float-end">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@section script {
+    <script>
+        // js side bar
+        var linksSideBar = document.querySelectorAll('#Main .SideBar .nav-link');
+        function removeActive() {
+            linksSideBar.forEach(element => {
+                element.classList.remove('active');
+            })
+        }
+        function start() {
+            removeActive();
+            linksSideBar.forEach(element => {
+                if (element.textContent.includes('Quản lý người dùng')) {
+                    element.classList.add('active')
+                }
+            })
+        }
+        start();
+    </script>
+    <!-- js register form -->
+    <script>
+        var password = document.querySelector('#RegisterAccountModal .form-group input#Password');
+        var rePassword = document.querySelector('#RegisterAccountModal .form-group input#Re-Password');
+        var InputsRegister = document.querySelectorAll('#RegisterAccountModal .form-group');
+        InputsRegister.forEach(element => {
+            element.querySelector('input.form-control').addEventListener('blur', function () {
+                if (!element.querySelector('input.form-control').value) {
+                    element.querySelector('#RegisterErrorMessage').textContent = "Vui lòng nhập trường này";
+                }
+            })
+            element.querySelector('input.form-control').addEventListener('input', function () {
+                if (this == rePassword || this == password) {
+                    if (password.value != rePassword.value) {
+                        element.querySelector('#RegisterErrorMessage').textContent = "Mật khẩu xác nhận không chính xác";
+                    } else {
+                        document.querySelector('.form-group .RegisterPassErrorMessage').textContent = "";
+                        document.querySelector('.form-group .RegisterRePassErrorMessage').textContent = "";
+                    }
+                } else {
+                    element.querySelector('#RegisterErrorMessage').textContent = "";
+                }
+            })
+        })
+    </script>
+    <!-- js register error -->
+    @if (ViewBag.registerError == true)
+    {
+        <script>
+            document.querySelector('#RegisterAccount').click();
+        </script>
+    }
+}

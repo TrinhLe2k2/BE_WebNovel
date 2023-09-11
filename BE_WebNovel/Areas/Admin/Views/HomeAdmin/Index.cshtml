@@ -1,6 +1,7 @@
 ﻿﻿@model BE_WebNovel.Models.User
 @{
     ViewBag.Title = "Chỉnh sửa trang cá nhân";
+    ViewBag.currtentUser = ViewBag.CurrtentUser.username;
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -17,15 +18,15 @@
             </div>
         </div>
         <div class="row position-absolute w-100 p-2 align-items-center" style="bottom: 50%; transform: translateY(50%);">
-            <div class="UserProfile col-5 col-sm-3 col-xl-2">
+            <div class="UserProfile col-5 col-sm-2 col-xl-2">
                 <div class="Avatar position-relative rounded-circle" style="padding-bottom: 100%; box-shadow: 0 0 4px #fff;">
                     <img src="~/Content/assets/img/User/Avatar/@Model.user_avatar" alt="" class="w-100 h-100 position-absolute rounded-circle" style="object-fit: cover;">
                 </div>
             </div>
-            <div class="Information col-12 col-sm-9 col-xl-10">
-                <h4 class="UserName text-white fw-bold" style="text-shadow: 0 0 4px #000;">
+            <div class="Information col-12 col-sm-12 col-xl-10">
+                <h5 class="UserName text-white mt-2 style="text-shadow: 0 0 4px #000;">
                     @Model.username
-                </h4>
+                </h5>
                 <div class="Information_Action">
                     <ul class="nav">
                         <li class="nav-item">
@@ -47,6 +48,7 @@
         <form action="~/Admin/HomeAdmin/Index" enctype="multipart/form-data" method="post">
             @Html.AntiForgeryToken()
             <input class="form-control" hidden type="text" name="user_id" value="@Model.user_id">
+            <input class="form-control" hidden type="text" name="permission_id" value="@Model.permission_id">
             <div class="my-2 form-group">
                 <label class="form-label" for="Avatar">Ảnh đại diện: </label>
                 <input class="form-control" id="Avatar" type="file" name="avatar" />

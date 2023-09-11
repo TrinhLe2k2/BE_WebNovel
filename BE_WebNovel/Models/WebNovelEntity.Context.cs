@@ -25,17 +25,17 @@ namespace BE_WebNovel.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BlackBook> BlackBooks { get; set; }
+        public virtual DbSet<BlackUser> BlackUsers { get; set; }
         public virtual DbSet<BookCategory> BookCategories { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Chapter> Chapters { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<permission> permissions { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
-        public virtual DbSet<user_permissions> user_permissions { get; set; }
+        public virtual DbSet<StatusBook> StatusBooks { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<BlackBook> BlackBooks { get; set; }
-        public virtual DbSet<BlackUser> BlackUsers { get; set; }
     }
 }
